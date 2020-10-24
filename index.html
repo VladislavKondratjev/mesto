@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta lang="ru">
     <link rel="stylesheet" href="./pages/index.css">
     <title>Mesto</title>
 </head>
@@ -17,8 +18,8 @@
                 <h1 class="profile__name">Жак-Ив Кусто</h1>
                 <p class="profile__description">Исследователь океана</p>
             </div>
-                <button class="profile__edit-button button"><img src="./images/Edit Button.png" alt=""></button>
-                <button class="profile__add-button button"><img src="./images/Add Button.png" alt=""></button>
+                <button type="button" class="profile__edit-button button"><img src="./images/Edit Button.png" alt=""></button>
+                <button type="button" class="profile__add-button button"><img src="./images/Add Button.png" alt=""></button>
         </section>
         <section class="elements">
             <section class="element">
@@ -68,6 +69,17 @@
     <footer class="footer">
         <h3 class="footer__copyright">&copy; 2020 Mesto Russia</h3>
     </footer>
+    <div class="popup">
+        <div class="popup__content">
+            <button type="button" class="popup__close-button"></button>
+            <h3 class="popup__title">Редактировать профиль</h3>
+            <form class="popup__form">
+                <input type="text" class="popup__input popup__input_type_name" placeholder="Имя">            
+                <input type="text" class="popup__input popup__input_type_description" placeholder="О себе">
+                <button type="submit" class="popup__submit-button">Сохранить</button>
+            </form>
+        </div>    
+    </div>
     <script src="./scripts/index.js"></script>
 </body>
 </html>
