@@ -17,14 +17,15 @@ const description = document.querySelector('.profile__description');
 
 function showPopup() {
     popup.classList.add('popup_opened');
+    popupInputTypeName.this.innerHTML`${name.value}`;
+    popupInputTypeDescription.this.innerHTML`${description.value}`;
     popup.removeEventListener('click', showPopup)
 }
+editButton.addEventListener('click', showPopup);
 
 function closePopup() {
     popup.classList.remove('popup_opened')
 }
-
-editButton.addEventListener('click', showPopup);
 popupCloseButton.addEventListener('click', closePopup);
 
 function submitForm(event) {
@@ -34,5 +35,6 @@ function submitForm(event) {
     closePopup();
 }
 form.addEventListener('submit', submitForm);
+
 
   
