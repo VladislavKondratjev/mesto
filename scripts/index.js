@@ -9,7 +9,6 @@ const popupInputTypeDescription = document.querySelector('.popup__input_type_des
 //выбираем кнопки
 const popupCloseButton = document.querySelector('.popup__close-button');
 const editButton = document.querySelector('.profile__edit-button');
-const submitButton = document.querySelector('.popup__submit-button');
 
 //выбираем имя и описание
 const name = document.querySelector('.profile__name');
@@ -19,15 +18,12 @@ function showPopup() {
     popup.classList.add('popup_opened');
     popupInputTypeName.value = name.textContent;
     popupInputTypeDescription.value = description.textContent;
-    popup.removeEventListener('click', showPopup)
 }
 
 function closePopup() {
     popup.classList.remove('popup_opened')
 }
 
-editButton.addEventListener('click', showPopup);
-popupCloseButton.addEventListener('click', closePopup);
 
 function submitForm(event) {
     event.preventDefault();
@@ -35,7 +31,10 @@ function submitForm(event) {
     description.textContent = popupInputTypeDescription.value;
     closePopup();
 }
+
 form.addEventListener('submit', submitForm);
+editButton.addEventListener('click', showPopup);
+popupCloseButton.addEventListener('click', closePopup);
 
 
   
