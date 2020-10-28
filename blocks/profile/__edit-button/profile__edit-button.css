@@ -1,7 +1,7 @@
 .profile__edit-button {
     width: 24px;
     height: 24px;
-    margin-left: 19px;
+    margin-left: 23px;
     align-self: center;
 }
 
@@ -9,6 +9,6 @@
     .profile__edit-button {
         width: 18px;
         height: 18px;
-        margin-left: 25px;
+        margin-left: 10px;
     }
 }
