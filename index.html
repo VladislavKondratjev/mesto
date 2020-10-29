@@ -9,7 +9,7 @@
 <body class="page">
     <div class="page__container">
         <header class="header">
-            <img class="logo" src="./images/Vector.png" alt="Место Россия">
+            <img class="logo" src="./images/logo.svg" alt="Место Россия">
         </header>
         <main>
             <section class="profile">
@@ -17,56 +17,56 @@
                 <div class="profile__info">
                     <div class="profile__editor">
                         <h1 class="profile__name">Жак-Ив Кусто</h1>
-                        <button type="button" class="profile__edit-button button"><img src="./images/Edit Button.png" alt="Изменить"></button>
+                        <button type="button" class="profile__edit-button button"></button>
                     </div>
                     <p class="profile__description">Исследователь океана</p>
                 </div>
-                    <button type="button" class="profile__add-button button"><img src="./images/Add Button.png" alt="Добавить"></button>
+                    <button type="button" class="profile__add-button button"></button>
             </section>
-            <section class="elements">
+            <div class="elements">
                 <article class="element">
-                    <img class="element__photo" src="./images/kirill-pershin-1088404-unsplash (1).jpg" alt="Место">
+                    <img class="element__photo" src="./images/element__photo1.jpg" alt="Место">
                     <div class="element__info">
                         <h2 class="element__place">Карачаевск</h2>
                         <button type="button" class="element__like-button"></button>
                     </div>  
                 </article>
                 <article class="element">
-                    <img class="element__photo" src="./images/kirill-pershin-1404681-unsplash (1).jpg" alt="Место">
+                    <img class="element__photo" src="./images/element__photo2.jpg" alt="Место">
                     <div class="element__info">
                         <h2 class="element__place">Гора Эльбрус</h2>
                         <button type="button" class="element__like-button"></button>
                     </div>  
                 </article>
                 <article class="element">
-                    <img class="element__photo" src="./images/kirill-pershin-1556355-unsplash (1).jpg" alt="Место">
+                    <img class="element__photo" src="./images/element__photo3.jpg" alt="Место">
                     <div class="element__info">
                         <h2 class="element__place">Домбай</h2>
                         <button type="button" class="element__like-button"></button>
                     </div>  
                 </article>
                 <article class="element">
-                    <img class="element__photo" src="./images/kirill-pershin-1404681-unsplash (1).jpg" alt="Место">
+                    <img class="element__photo" src="./images/element__photo2.jpg" alt="Место">
                     <div class="element__info">
                         <h2 class="element__place">Гора Эльбрус</h2>
                         <button type="button" class="element__like-button"></button>
                     </div>  
                 </article>
                 <article class="element">
-                    <img class="element__photo" src="./images/kirill-pershin-1088404-unsplash (1).jpg" alt="Место">
+                    <img class="element__photo" src="./images/element__photo3.jpg" alt="Место">
                     <div class="element__info">
                         <h2 class="element__place">Домбай</h2>
                         <button type="button" class="element__like-button"></button>
                     </div>  
                 </article>
                 <article class="element">
-                    <img class="element__photo" src="./images/kirill-pershin-1556355-unsplash (1).jpg" alt="Место">
+                    <img class="element__photo" src="./images/element__photo1.jpg" alt="Место">
                     <div class="element__info">
                         <h2 class="element__place">Карачаево-Черкессия</h2>
                         <button type="button" class="element__like-button"></button>
                     </div>  
                 </article>
-            </section>
+            </div>
         </main>
         <footer class="footer">
             <h3 class="footer__copyright">&copy; 2020 Mesto Russia</h3>
@@ -76,8 +76,8 @@
                 <button type="button" class="popup__close-button"></button>
                 <h3 class="popup__title">Редактировать профиль</h3>
                 <form class="popup__form" method="POST" action="#" name="edit-form">
-                    <input type="text" class="popup__input input-border popup__input_type_name" placeholder="Имя" name="edit-ame" required>            
-                    <input type="text" class="popup__input input-border popup__input_type_description" placeholder="О себе" name="edit-escription" required>
+                    <input type="text" class="popup__input popup__input_type_name" placeholder="Имя" name="edit-ame" required>            
+                    <input type="text" class="popup__input popup__input_type_description" placeholder="О себе" name="edit-escription" required>
                     <button type="submit" class="popup__submit-button">Сохранить</button>
                 </form>
             </div>    

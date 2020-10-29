@@ -4,7 +4,7 @@
     line-height: 29px;
     color: black;
     margin-top: 32px;
-    margin-right: 31px;
+    margin-right: 49px;
 }
 
 @media screen and (max-width: 767px) {
@@ -12,6 +12,6 @@
         font-size: 18px;
         line-height: 22px;
         margin-top: 26px;
-        margin-left: 0;
+        margin-right: 8px;
     }
 }

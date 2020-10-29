@@ -8,6 +8,7 @@
     text-align: center;
     color: white;
     margin-top: 55px;
+    margin-bottom: 38px;
     height: 50px;
 }
 
@@ -20,5 +21,6 @@
         height: 46px;
         font-size: 14px;
         line-height: 17px;
+        margin-bottom: 25px;
     }
 }
