@@ -2,6 +2,12 @@
     position: relative;
     border-radius: 10px;
     background-color: white;
-    min-height: 361px;
     overflow: hidden;
+    padding-bottom: 6px;
+}
+
+@media screen and (max-width: 767px) {
+    .element {
+        padding-bottom: 0;
+    }    
 }

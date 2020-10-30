@@ -7,13 +7,15 @@
     line-height: 22px;
     text-align: center;
     color: white;
-    margin-top: 55px;
-    margin-bottom: 38px;
+    margin-top: 50px;    
+    margin-bottom: 37px;
     height: 50px;
+    transition: 0.3s;
 }
 
 .popup__submit-button:hover {
     opacity: 0.6;
+    transition: 0.3s;
 }
 
 @media screen and (max-width: 767px) {
@@ -22,5 +24,6 @@
         font-size: 14px;
         line-height: 17px;
         margin-bottom: 25px;
+        margin-top: 44px;
     }
 }

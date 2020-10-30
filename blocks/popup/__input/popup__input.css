@@ -1,6 +1,17 @@
 .popup__input {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
     border: 0;
     outline: none;
     margin-top: 30px;
+    padding-bottom: 8px;
     border-bottom: 1px solid rgba(1, 1, 1, 0.2);
 }
+
+@media screen and (max-width: 767px) {
+    .popup__input {
+        padding-bottom: 8px;
+    }
+}
+    
