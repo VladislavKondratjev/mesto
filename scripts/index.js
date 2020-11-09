@@ -1,4 +1,6 @@
-const popup = document.querySelector('.popup');
+const popup = document.querySelector('.popup_type_edit');
+const popupAddCard = document.querySelector('.popup_type_add-card');
+//const popup = document.querySelector('.popup_type_image');
 const popupContent = document.querySelector('.popup__content');
 
 //выбираем поля формы
@@ -9,10 +11,13 @@ const popupInputTypeDescription = document.querySelector('.popup__input_type_des
 //выбираем кнопки
 const popupCloseButton = document.querySelector('.popup__close-button');
 const editButton = document.querySelector('.profile__edit-button');
+const addButton = document.querySelector('.profile__add-button');
+const deleteButton = document.querySelector('.element__delete-button');
 
 //выбираем имя и описание
 const name = document.querySelector('.profile__name');
 const description = document.querySelector('.profile__description');
+
 
 function showPopup() {
     popup.classList.add('popup_opened');
@@ -21,9 +26,21 @@ function showPopup() {
 }
 
 function closePopup() {
-    popup.classList.remove('popup_opened')
+    popup.classList.remove('popup_opened');
 }
 
+function showPopupAddCard() {
+    popupAddCard.classList.add('popup_opened');
+}
+
+function closePopupAddCard() {
+    popupAddCard.classList.remove('popup_opened');
+}
+
+
+//function closePopupAddCard() {
+  //  popupAddCard.classList.remove('popup_opened')
+//}
 
 function submitForm(event) {
     event.preventDefault();
@@ -35,6 +52,9 @@ function submitForm(event) {
 form.addEventListener('submit', submitForm);
 editButton.addEventListener('click', showPopup);
 popupCloseButton.addEventListener('click', closePopup);
+popupCloseButton.addEventListener('click', closePopupAddCard);
+
+addButton.addEventListener('click', showPopupAddCard);
 
 //спринт 5
 //добавляем элементы в темплейт
@@ -73,10 +93,23 @@ function createCard(data) {
 
     elementCard.querySelector('.element__photo').src = data.link;
     elementCard.querySelector('.element__place').textContent = data.name;
+    //elementCard.querySelector('.element__delete').addEventListener('click', event => {
+    //    const element = event.target.closest('.element')
+    //    if (element) {
+    //        element.remove()
+    //    }
+  //  })
 
     elements.append(elementCard);
-}
 
+//debugger
+//deleteButton.querySelector('element__delete-button').addEventListener('click', event => {
+ //   const element = event.target.closest('.element')
+ //       if (element) {
+ //           element.remove()
+//       }
+//})
+}
 initialCards.forEach(createCard);
 
   
