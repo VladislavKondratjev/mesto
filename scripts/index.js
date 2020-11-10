@@ -23,24 +23,13 @@ function showPopup() {
     popup.classList.add('popup_opened');
     popupInputTypeName.value = name.textContent;
     popupInputTypeDescription.value = description.textContent;
+  //  popupAddCard.classList.add('popup_opened');
 }
 
 function closePopup() {
     popup.classList.remove('popup_opened');
-}
-
-function showPopupAddCard() {
-    popupAddCard.classList.add('popup_opened');
-}
-
-function closePopupAddCard() {
     popupAddCard.classList.remove('popup_opened');
 }
-
-
-//function closePopupAddCard() {
-  //  popupAddCard.classList.remove('popup_opened')
-//}
 
 function submitForm(event) {
     event.preventDefault();
@@ -52,64 +41,79 @@ function submitForm(event) {
 form.addEventListener('submit', submitForm);
 editButton.addEventListener('click', showPopup);
 popupCloseButton.addEventListener('click', closePopup);
-popupCloseButton.addEventListener('click', closePopupAddCard);
-
 addButton.addEventListener('click', showPopupAddCard);
 
 //спринт 5
 //добавляем элементы в темплейт
+function showPopupAddCard() {
+    popupAddCard.classList.add('popup_opened');
+}
+
 const initialCards = [
     {
-        name: 'Архыз',
+        place: 'Архыз',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
     },
     {
-        name: 'Челябинская область',
+        place: 'Челябинская область',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
     },
     {
-        name: 'Иваново',
+        place: 'Иваново',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
     },
     {
-        name: 'Камчатка',
+        place: 'Камчатка',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
     },
     {
-        name: 'Холмогорский район',
+        place: 'Холмогорский район',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
     },
     {
-        name: 'Байкал',
+        place: 'Байкал',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
 ];
 
 const elements = document.querySelector('.elements');
+const element = document.querySelector('.element');
 
-function createCard(data) {
+const elementPlace = document.querySelector('.popup__input_type_place');
+const elementPhoto = document.querySelector('.popup__input_type_photo');
+
+function createCard() {
+    const elementTemplate = document.querySelector('.element-template').content;
+    const elementCard = elementTemplate.cloneNode(true);
+
+    elementCard.querySelector('.element__photo').src = elementPhoto.value;
+    elementCard.querySelector('.element__place').textContent = elementPlace.value;
+    
+    popupAddCard.addEventListener('submit', event => {
+        event.preventDefault();
+        createCard();
+        closePopup(popupAddCard);
+    });
+    elements.prepend(elementCard);
+
+}
+
+function addCards(data) {
     const elementTemplate = document.querySelector('.element-template').content;
     const elementCard = elementTemplate.cloneNode(true);
 
     elementCard.querySelector('.element__photo').src = data.link;
-    elementCard.querySelector('.element__place').textContent = data.name;
-    //elementCard.querySelector('.element__delete').addEventListener('click', event => {
-    //    const element = event.target.closest('.element')
-    //    if (element) {
-    //        element.remove()
-    //    }
-  //  })
+    elementCard.querySelector('.element__place').textContent = data.place;
+    
+    popupAddCard.addEventListener('submit', event => {
+        event.preventDefault();
+        createCard(data);
+        closePopup(popupAddCard);
+    });
 
     elements.append(elementCard);
 
-//debugger
-//deleteButton.querySelector('element__delete-button').addEventListener('click', event => {
- //   const element = event.target.closest('.element')
- //       if (element) {
- //           element.remove()
-//       }
-//})
 }
-initialCards.forEach(createCard);
+initialCards.forEach(addCards);
 
   
