@@ -1,4 +1,5 @@
 //выбираем попапы
+const popup = document.querySelector('.popup')
 const popupEdit = document.querySelector('.popup_type_edit');
 const popupAddCard = document.querySelector('.popup_type_add-card');
 const popupOpenImage = document.querySelector('.popup_type_image');
@@ -19,12 +20,17 @@ const name = document.querySelector('.profile__name');
 const description = document.querySelector('.profile__description');
 
 //ф-я откртия попапа редактирования профиля
-function showPopup() {
+function showPopupEdit() {
     popupEdit.classList.add('popup_opened');
+}
+function showPopupAdd() {
+    popupAddCard.classList.add('popup_opened');
+}
+function showPopupImage() {
+    popupOpenImage.classList.add('popup_opened');
+}    
     popupInputTypeName.value = name.textContent;
     popupInputTypeDescription.value = description.textContent;
-}
-
 //ф-я закрытия попапов
 function closePopup() {
     popupEdit.classList.remove('popup_opened');
@@ -42,13 +48,13 @@ function submitForm(event) {
 //спринт 5
 
 //открытие попапа добавления карточки
-function showPopupAddCard() {
-    popupAddCard.classList.add('popup_opened');
-}
+// function showPopupAddCard() {
+//     popupAddCard.classList.add('popup_opened');
+// }
 
-function showPopupOpenImage() {
-    popupOpenImage.classList.add('popup_opened');
-}
+// function showPopupOpenImage() {
+//     popupOpenImage.classList.add('popup_opened');
+// }
 
 const initialCards = [
     {
@@ -88,15 +94,16 @@ function addCards(data) {
     const elementPlace = elementCard.querySelector('.element__place');
     const elementDeleteButton = elementCard.querySelector('.element__delete-button');
     const elementLikeButton = elementCard.querySelector('.element__like-button');
-    function showPopupOpenImage(src, alt) {
-        elementPhoto.src = src;
-        elementPhoto.alt = alt;
-        elementPlace.textContent = alt;
-        showPopupOpenImage(popupOpenImage)
-    }
     
     elementPhoto.src = data.link;
     elementPlace.textContent = data.place;
+
+function showPopupOpenImage(data) {
+    elementPhoto.src = data.link;
+    elementPlace.textContent = data.place;
+    showPopupImage()
+}
+    
     
     elementDeleteButton.addEventListener('click', event => {
         const element = event.target.closest('.element')
@@ -136,9 +143,9 @@ addForm.addEventListener('submit', event => {
 
 initialCards.forEach(addCards);
 form.addEventListener('submit', submitForm);
-editButton.addEventListener('click', showPopup);
-addButton.addEventListener('click', showPopupAddCard);
-popupAddCloseButton.addEventListener('click', closePopup);
-popupEditCloseButton.addEventListener('click', closePopup);
-popupOpenImageCloseButton.addEventListener('click', closePopup);
+editButton.addEventListener('click', showPopupEdit);
+addButton.addEventListener('click', showPopupAdd);
+popupAddCloseButton.addEventListener('click', () => closePopup(popupAddCard));
+popupEditCloseButton.addEventListener('click', () =>  closePopup(popupEdit));
+popupOpenImageCloseButton.addEventListener('click', () =>  closePopup(popupOpenImage));
 
