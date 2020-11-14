@@ -42,7 +42,7 @@
         <div class="popup popup_type_add-card">
           <div class="popup__content">
               <button type="button" class="popup__close-button button"></button>
-              <h3 class="popup__title">Новое место</h3>
+              <h3 class="popup__title popup__title_type_newplace">Новое место</h3>
               <form class="popup__form add-element-form" method="POST" action="#" name="edit-form">
                   <input type="text" class="popup__input popup__input_type_place" placeholder="Название" name="add-name" required>            
                   <input type="text" class="popup__input popup__input_type_photo" placeholder="Ссылка на картинку" name="add-link" required>
@@ -51,13 +51,10 @@
           </div>   
           <div class="popup popup_type_image">
             <div class="popup__content">
-                <button type="button" class="popup__close-button button"></button>
-                <h3 class="popup__title">Редактировать профиль</h3>
-                <form class="popup__form" method="POST" action="#" name="edit-form">
-                    <input type="text" class="popup__input popup__input_type_name" placeholder="Имя" name="edit-ame" required>            
-                    <input type="text" class="popup__input popup__input_type_description" placeholder="О себе" name="edit-escription" required>
-                    <button type="submit" class="popup__submit-button">Сохранить</button>
-                </form>
+                <figure>
+                    <img class="element__photo popup-image" src="" alt="">
+                    <figcaption class="element__place popup-cation"></figcaption>
+                </figure>
             </div>
       </div>
     </div>
