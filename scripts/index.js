@@ -94,8 +94,8 @@ function addCards(data) {
 }
 
 //ф-я просмотра фото
-const photo = document.querySelector('.element__photo');
-const place = document.querySelector('.element__place');
+const photo = document.querySelector('.popup__image');
+const place = document.querySelector('.popup__caption');
 function showPopupOpenImage(src, alt) {
     photo.src = src;
     photo.alt = alt;
