@@ -1,12 +1,12 @@
 .footer {
-    color: #545454;
-    margin-top: 62px;  
-    margin-bottom: 57px;  
+  color: #545454;
+  margin-top: 62px;
+  margin-bottom: 57px;
 }
 
 @media screen and (max-width: 767px) {
-    .footer {
-        margin-top: 54px;
-        margin-bottom: 31px;  
-    }
+  .footer {
+    margin-top: 54px;
+    margin-bottom: 31px;
+  }
 }
