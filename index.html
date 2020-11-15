@@ -40,23 +40,25 @@
             </div>    
         </div>
         <div class="popup popup_type_add-card">
-          <div class="popup__content">
-              <button type="button" class="popup__close-button button"></button>
+          <div class="popup__content popup__content_type_new-card">
+              <button type="button" class="popup__close-button button popup__close-button_type_modal"></button>
               <h3 class="popup__title popup__title_type_newplace">Новое место</h3>
-              <form class="popup__form add-element-form" method="POST" action="#" name="edit-form">
-                  <input type="text" class="popup__input popup__input_type_place" placeholder="Название" name="add-name" required>            
-                  <input type="text" class="popup__input popup__input_type_photo" placeholder="Ссылка на картинку" name="add-link" required>
+              <form class="popup__form add-element-form popup__form_type_modal" method="POST" action="#" name="edit-form">
+                  <input type="text" class="popup__input popup__input_type_place popup__input_type_modal" placeholder="Название" name="add-name" required>            
+                  <input type="text" class="popup__input popup__input_type_photo popup__input_type_modal" placeholder="Ссылка на картинку" name="add-link" required>
                   <button type="submit" class="popup__submit-button">Создать</button>
               </form>
-          </div>   
+          </div>
+        </div>     
           <div class="popup popup_type_image">
-            <div class="popup__content">
-                <figure>
-                    <img class="element__photo popup-image" src="" alt="">
-                    <figcaption class="element__place popup-cation"></figcaption>
-                </figure>
-            </div>
-      </div>
+              <div class="popup__image-caption">
+              <button type="button" class="popup__close-button button popup__close-button_type_modal"></button>
+              <figure class="figure">
+                <img class="element__photo popup__image" src="" alt="">
+                <figcaption class="element__place popup__caption"></figcaption>
+              </figure>
+              </div>
+        </div>
     </div>
     <template class="element-template">
         <article class="element">
