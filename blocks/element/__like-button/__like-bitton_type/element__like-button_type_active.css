@@ -9,3 +9,10 @@
     bottom: 34px;
     transition: 0.3s;
 }
+
+@media screen and (max-width: 767px) {
+    .element__like-button_type_active {
+        right: 17px;
+        bottom: 27px;
+    }
+}

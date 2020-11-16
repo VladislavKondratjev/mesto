@@ -1,5 +1,4 @@
 //выбираем попапы
-const popup = document.querySelector('.popup')
 const popupEdit = document.querySelector('.popup_type_edit');
 const popupAddCard = document.querySelector('.popup_type_add-card');
 const popupOpenImage = document.querySelector('.popup_type_image');
@@ -16,13 +15,49 @@ const addButton = document.querySelector('.profile__add-button');
 //выбираем имя и описание
 const name = document.querySelector('.profile__name');
 const description = document.querySelector('.profile__description');
+//выбираем грид и форму 
+const elements = document.querySelector('.elements');
+const addForm = document.querySelector('.add-element-form');
+const elementTemplate = document.querySelector('.element-template').content;
+//массив исходных данных
+const initialCards = [
+    {
+        place: 'Я и JS',
+        link: 'https://sun9-76.userapi.com/bdz_-dS1jkT59AA17nnzdnPcPjOF1JBAu6yjMg/RhBfCd6i0c4.jpg'
+    },
+    {
+        place: 'Адаптив',
+        link: 'https://i.forfun.com/j95a6ukr.jpeg'
+    },
+    {
+        place: 'Сдал работу с первого раза',
+        link: 'https://memepedia.ru/wp-content/uploads/2019/03/u-suka-10.jpg'
+    },
+    {
+        place: 'Фронтендек',
+        link: 'https://memepedia.ru/wp-content/uploads/2019/10/chipseki-mem.png'
+    },
+    {
+        place: 'Как работает JavaScript',
+        link: 'https://iknowyourmeme.files.wordpress.com/2016/12/2bb6dc0db7452e1.png'
+    },
+    {
+        place: 'Байкал',
+        link: 'https://sun9-75.userapi.com/Du8H7YDwDV3fRVRqrm47IONr9jJB0VPqE3Ejew/-okoCzFyrtA.jpg'
+    }
+];
+//выбираем элементы карточки для открытия на весь экран
+const photo = document.querySelector('.popup__image');
+const place = document.querySelector('.popup__caption');
+//выбираем инпуты попапа добавления карточки
+const elementAddPhoto = addForm.querySelector('.popup__input_type_photo');
+const elementAddPlace = addForm.querySelector('.popup__input_type_place');
 //ф-я откртия попапов
 function showPopup(popup) {
     popup.classList.add('popup_opened');
-}   
-//подставляем данные в ф-ю редактирования попапа
     popupInputTypeName.value = name.textContent;
     popupInputTypeDescription.value = description.textContent;
+}   
 //ф-я закрытия попапов
 function closePopup(popup) {
     popup.classList.remove('popup_opened');   
@@ -34,39 +69,8 @@ function submitForm(event) {
     description.textContent = popupInputTypeDescription.value;
     closePopup(popupEdit);
 }
-//спринт 5
-const initialCards = [
-    {
-        place: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        place: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        place: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        place: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        place: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        place: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-];
-//выбираем грид и форму 
-const elements = document.querySelector('.elements');
-const addForm = document.querySelector('.add-element-form');
-
-function addCards(data) {
-    const elementTemplate = document.querySelector('.element-template').content;
+//ф-я добавления карточек из массива
+function createCard(data) {
     const elementCard = elementTemplate.cloneNode(true);
     const elementPhoto = elementCard.querySelector('.element__photo');
     const elementPlace = elementCard.querySelector('.element__place');
@@ -90,12 +94,9 @@ function addCards(data) {
     
     elementPhoto.addEventListener('click', () => showPopupOpenImage(data.link, data.place));
 
-    elements.prepend(elementCard);
+    return elementCard;
 }
-
 //ф-я просмотра фото
-const photo = document.querySelector('.popup__image');
-const place = document.querySelector('.popup__caption');
 function showPopupOpenImage(src, alt) {
     photo.src = src;
     photo.alt = alt;
@@ -103,21 +104,26 @@ function showPopupOpenImage(src, alt) {
     showPopup(popupOpenImage);
 }
 //Функия добавления карточки
-    addForm.addEventListener('submit', event => {
-        event.preventDefault();
-        const elementAddPhoto = addForm.querySelector('.popup__input_type_photo');
-        const elementAddPlace = addForm.querySelector('.popup__input_type_place');
-        const cardData = {
-            link: elementAddPhoto.value,
-            place: elementAddPlace.value
-        }    
-
-        addCards(cardData);        
-        addForm.reset();        
-        closePopup(popupAddCard);
+addForm.addEventListener('submit', event => {
+    event.preventDefault();
+    const data = {
+        link: elementAddPhoto.value,
+        place: elementAddPlace.value
+    }
+    
+    addForm.reset();        
+    closePopup(popupAddCard);
+    elements.prepend(createCard(data));
 });
-
-initialCards.forEach(addCards);
+//отрисовка карточек
+function render() {
+    initialCards.forEach(data => {
+        const elementCard = createCard(data);
+        elements.append(elementCard);
+    });
+}
+render();
+//слушатели
 form.addEventListener('submit', submitForm);
 editButton.addEventListener('click', () => showPopup(popupEdit));
 addButton.addEventListener('click', () => showPopup(popupAddCard));
