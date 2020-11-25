@@ -33,8 +33,10 @@
                 <button type="button" class="popup__close-button button"></button>
                 <h3 class="popup__title">Редактировать профиль</h3>
                 <form class="popup__form" method="POST" action="#" name="edit-form">
-                    <input type="text" class="popup__input popup__input_type_name" placeholder="Имя" name="edit-name" required>            
-                    <input type="text" class="popup__input popup__input_type_description" placeholder="О себе" name="edit-escription" required>
+                    <input id="name" autocomplete="off" type="text" class="popup__input popup__input_type_name" placeholder="Имя" name="edit-name" minlength="2" maxlength="40" required>
+                    <span id="name-error" class="error"></span>         
+                    <input id="description" autocomplete="off" type="text" class="popup__input popup__input_type_description" placeholder="О себе" name="edit-description" minlength="2" maxlength="200" required>
+                    <span id="description-error" class="error"></span>
                     <button type="submit" class="popup__submit-button">Сохранить</button>
                 </form>
             </div>    
@@ -44,8 +46,10 @@
               <button type="button" class="popup__close-button button popup__close-button_type_modal"></button>
               <h3 class="popup__title popup__title_type_newplace">Новое место</h3>
               <form class="popup__form add-element-form popup__form_type_modal" method="POST" action="#" name="edit-form">
-                  <input type="text" class="popup__input popup__input_type_place popup__input_type_modal" placeholder="Название" name="add-name" required>            
-                  <input type="text" class="popup__input popup__input_type_photo popup__input_type_modal" placeholder="Ссылка на картинку" name="add-link" required>
+                  <input id="place" type="text" autocomplete="off" class="popup__input popup__input_type_place popup__input_type_modal" placeholder="Название" name="add-name" minlength="2" maxlength="30" required>
+                  <span id="place-error" class="error"></span>            
+                  <input id="url" autocomplete="off" class="popup__input popup__input_type_photo popup__input_type_modal" placeholder="Ссылка на картинку" name="add-link" type="url" required>
+                  <span id="url-error" class="error"></span>
                   <button type="submit" class="popup__submit-button">Создать</button>
               </form>
           </div>
@@ -70,6 +74,7 @@
             </div>  
         </article>
     </template>
+<script src="./scripts/validate.js"></script>
 <script src="./scripts/index.js"></script>
 </body>
 </html> 

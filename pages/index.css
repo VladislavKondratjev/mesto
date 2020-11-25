@@ -42,4 +42,9 @@
 @import url(../blocks/popup/__content/_type/popup__content_type_new-card.css);
 @import url(../blocks/popup/__input/_type/popup__input_type_modal.css);
 @import url(../blocks/popup/__form/_type/popup__form_type_modal.css);
+@import url(../blocks/popup/__submit-button/_type/popup__submit-button_type_inactive.css);
+@import url(../blocks/error/error.css);
+@import url(../blocks/popup/__input/_type/popup__input_type_error.css);
+
+
 
