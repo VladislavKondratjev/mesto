@@ -3,7 +3,7 @@ const popupEdit = document.querySelector('.popup_type_edit');
 const popupAddCard = document.querySelector('.popup_type_add-card');
 const popupOpenImage = document.querySelector('.popup_type_image');
 //выбираем форму редактирования профиля и поля формы
-const form = document.querySelector('.popup__form');
+const popupform = document.querySelector('.popup__form');
 const popupInputTypeName = document.querySelector('.popup__input_type_name');
 const popupInputTypeDescription = document.querySelector('.popup__input_type_description');
 //выбираем кнопки
@@ -12,7 +12,7 @@ const popupAddCloseButton = popupAddCard.querySelector('.popup__close-button');
 const popupOpenImageCloseButton = popupOpenImage.querySelector('.popup__close-button');
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
-//выбираем имя и описание
+//выбираем имя и описание профиля
 const name = document.querySelector('.profile__name');
 const description = document.querySelector('.profile__description');
 //выбираем грид и форму 
@@ -52,20 +52,35 @@ const place = document.querySelector('.popup__caption');
 //выбираем инпуты попапа добавления карточки
 const elementAddPhoto = addForm.querySelector('.popup__input_type_photo');
 const elementAddPlace = addForm.querySelector('.popup__input_type_place');
+
 //ф-я откртия попапов
 function showPopup(popup) {
     popup.classList.add('popup_opened');
-    popupInputTypeName.value = name.textContent;
-    popupInputTypeDescription.value = description.textContent;
     document.addEventListener('keydown', keyHandler);
     popup.addEventListener('mousedown', closePopupOverlay);
-    resetValidation(validationConfig);
+    closeProfilePopup();
+    openProfilePopup();
 }
+
 //ф-я закрытия попапов
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
     document.removeEventListener('keydown', keyHandler);
     popup.addEventListener('mousedown', closePopupOverlay);
+    addForm.reset();
+}
+
+//сброс введённых данных при закрытии попапа профиля
+function closeProfilePopup() {
+    popupInputTypeName.value = '';
+    popupInputTypeDescription.value = '';
+}
+
+//перенос имени и описания при открытии попапа профиля
+function openProfilePopup(popup) {
+    popupInputTypeName.value = name.textContent;
+    popupInputTypeDescription.value = description.textContent;
+    // resetValidation(popup, validationConfig);
 }
 
 //ф-я редактирования данных профиля
@@ -102,6 +117,7 @@ function createCard(data) {
 
     return elementCard;
 }
+
 //ф-я просмотра фото
 function showPopupOpenImage(src, alt) {
     photo.src = src;
@@ -109,6 +125,7 @@ function showPopupOpenImage(src, alt) {
     place.textContent = alt;
     showPopup(popupOpenImage);
 }
+
 //Функия добавления карточки
 addForm.addEventListener('submit', event => {
     event.preventDefault();
@@ -119,16 +136,18 @@ addForm.addEventListener('submit', event => {
     
     addForm.reset();        
     closePopup(popupAddCard);
-    elements.prepend(createCard(data));
+    renderCard(createCard(data));
 });
+
+function renderCard(cardElement) {
+	elements.prepend(cardElement)
+}
 //отрисовка карточек
 function render() {
     initialCards.forEach(data => {
-        const elementCard = createCard(data);
-        elements.append(elementCard);
+        renderCard(createCard(data));
     });
 }
-render();
 //закрытие попапа по нажтию на ESC
 function keyHandler(evt) {
     if (evt.key === 'Escape') {
@@ -138,11 +157,16 @@ function keyHandler(evt) {
 //зыкрытие по клику на оверлей
 function closePopupOverlay(evt) {
     if (evt.target.classList.contains('popup')) {
-    closePopup(document.querySelector('.popup_opened'))
-  }
+        closePopup(document.querySelector('.popup_opened'))
+    }
 }
+
+render();
+openProfilePopup(popupEdit);
+enableValidation(validationConfig);
+
 //слушатели
-form.addEventListener('submit', submitForm);
+popupform.addEventListener('submit', submitForm);
 editButton.addEventListener('click', () => showPopup(popupEdit));
 addButton.addEventListener('click', () => showPopup(popupAddCard));
 popupAddCloseButton.addEventListener('click', () => closePopup(popupAddCard));

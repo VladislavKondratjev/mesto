@@ -1,3 +1,12 @@
+const validationConfig = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__submit-button',
+    inactiveButtonClass: 'popup__submit-button_type_inactive',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'error'
+}
+
 
 function showError(form, input, config) {
     const error = form.querySelector(`#${input.id}-error`);
@@ -32,7 +41,7 @@ function setButtonState(button, isActive, config) {
 function setEventListeners(form, config) {
     const inputsList = form.querySelectorAll(config.inputSelector);
     const submitButton = form.querySelector(config.submitButtonSelector);
-
+    
     inputsList.forEach((input) => {
         input.addEventListener('input', () => {
             checkInputValidity(form, input, config);
@@ -45,31 +54,19 @@ function enableValidation(config) {
     const forms = document.querySelectorAll(config.formSelector);
     forms.forEach((form) => {
         setEventListeners(form, config);
-
+        
         form.addEventListener('submit', (evt) => {
             evt.preventDefault();
         });
-
+        
         const submitButton = form.querySelector(config.submitButtonSelector);
         setButtonState(submitButton, form.checkValidity(), config)
     });
 }
 
-// function resetValidation(form, config) {
-//     const inputsList = document.querySelector(config.inputSelector);
-//     inputsList.forEach((input) => {
-//         hideError(form, input, config);
-//     })
-//     setButtonState(submitButton, form.checkValidity(), config)
-// }
-
-const validationConfig = {
-    formSelector: '.popup__form',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__submit-button',
-    inactiveButtonClass: 'popup__submit-button_type_inactive',
-    inputErrorClass: 'popup__input_type_error',
-    errorClass: 'error'
+function resetValidation(form, config) {
+    const inputsList = document.querySelectorAll(config.inputSelector);
+    inputsList.forEach((input) => {
+        hideError(form, input, config)
+    })
 }
-
-enableValidation(validationConfig);
