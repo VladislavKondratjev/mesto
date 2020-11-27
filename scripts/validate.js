@@ -7,19 +7,21 @@ const validationConfig = {
     errorClass: 'error'
 }
 
-
+//показать ошибку
 function showError(form, input, config) {
     const error = form.querySelector(`#${input.id}-error`);
     error.textContent = input.validationMessage;
     input.classList.add(config.inputErrorClass);
 }
 
+//скрыть ошибку
 function hideError(form, input, config) {
     const error = form.querySelector(`#${input.id}-error`);
     error.textContent = '';
     input.classList.remove(config.inputErrorClass);
 }
 
+//проверить валидность инпутов
 function checkInputValidity(form, input, config) {
     if (!input.validity.valid) {
         showError(form, input, config);
@@ -28,6 +30,7 @@ function checkInputValidity(form, input, config) {
     }
 }
 
+//активация/деактивация кнопки формы
 function setButtonState(button, isActive, config) {
     if (isActive) {
         button.classList.remove(config.inactiveButtonClass);
@@ -38,6 +41,7 @@ function setButtonState(button, isActive, config) {
     }
 }
 
+//установка слушателей на поля ввода и кнопку
 function setEventListeners(form, config) {
     const inputsList = form.querySelectorAll(config.inputSelector);
     const submitButton = form.querySelector(config.submitButtonSelector);
@@ -50,6 +54,7 @@ function setEventListeners(form, config) {
     });
 }
 
+//включение проверки
 function enableValidation(config) {
     const forms = document.querySelectorAll(config.formSelector);
     forms.forEach((form) => {
@@ -64,9 +69,10 @@ function enableValidation(config) {
     });
 }
 
-function resetValidation(form, config) {
-    const inputsList = document.querySelectorAll(config.inputSelector);
-    inputsList.forEach((input) => {
-        hideError(form, input, config)
-    })
-}
+//сброс полей валидации
+// function resetValidation(form, config) {
+//     const inputsList = document.querySelectorAll(config.inputSelector);
+//     inputsList.forEach((input) => {
+//         hideError(form, input, config)
+//     })
+// }

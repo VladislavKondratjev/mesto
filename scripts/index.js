@@ -58,8 +58,6 @@ function showPopup(popup) {
     popup.classList.add('popup_opened');
     document.addEventListener('keydown', keyHandler);
     popup.addEventListener('mousedown', closePopupOverlay);
-    closeProfilePopup();
-    openProfilePopup();
 }
 
 //ф-я закрытия попапов
@@ -71,16 +69,17 @@ function closePopup(popup) {
 }
 
 //сброс введённых данных при закрытии попапа профиля
-function closeProfilePopup() {
+function resetProfilePopup() {
     popupInputTypeName.value = '';
     popupInputTypeDescription.value = '';
+    closePopup(popupEdit);
 }
 
 //перенос имени и описания при открытии попапа профиля
-function openProfilePopup(popup) {
+function insertData() {
     popupInputTypeName.value = name.textContent;
     popupInputTypeDescription.value = description.textContent;
-    // resetValidation(popup, validationConfig);
+    showPopup(popupEdit);
 }
 
 //ф-я редактирования данных профиля
@@ -90,6 +89,7 @@ function submitForm(event) {
     description.textContent = popupInputTypeDescription.value;
     closePopup(popupEdit);
 }
+
 //ф-я добавления карточек из массива
 function createCard(data) {
     const elementCard = elementTemplate.cloneNode(true);
@@ -142,18 +142,21 @@ addForm.addEventListener('submit', event => {
 function renderCard(cardElement) {
 	elements.prepend(cardElement)
 }
+
 //отрисовка карточек
 function render() {
     initialCards.forEach(data => {
         renderCard(createCard(data));
     });
 }
+
 //закрытие попапа по нажтию на ESC
 function keyHandler(evt) {
     if (evt.key === 'Escape') {
         closePopup(document.querySelector('.popup_opened'));
     }
 }
+
 //зыкрытие по клику на оверлей
 function closePopupOverlay(evt) {
     if (evt.target.classList.contains('popup')) {
@@ -161,13 +164,13 @@ function closePopupOverlay(evt) {
     }
 }
 
+//вызовы функций
 render();
-openProfilePopup(popupEdit);
 enableValidation(validationConfig);
 
 //слушатели
 popupform.addEventListener('submit', submitForm);
-editButton.addEventListener('click', () => showPopup(popupEdit));
+editButton.addEventListener('click', () => insertData(popupEdit));
 addButton.addEventListener('click', () => showPopup(popupAddCard));
 popupAddCloseButton.addEventListener('click', () => closePopup(popupAddCard));
 popupEditCloseButton.addEventListener('click', () =>  closePopup(popupEdit));
