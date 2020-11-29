@@ -12,7 +12,7 @@ const popupAddCloseButton = popupAddCard.querySelector('.popup__close-button');
 const popupOpenImageCloseButton = popupOpenImage.querySelector('.popup__close-button');
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
-const submitButton = popupAddCard.querySelector('.popup__submit-button')
+const submitAddCardButton = popupAddCard.querySelector('.popup__submit-button')
 //выбираем имя и описание профиля
 const name = document.querySelector('.profile__name');
 const description = document.querySelector('.profile__description');
@@ -41,7 +41,6 @@ function closePopup(popup) {
     popup.classList.remove('popup_opened');
     document.removeEventListener('keydown', keyHandler);
     popup.addEventListener('mousedown', closePopupOverlay);
-    addForm.reset();
 }
 
 //перенос имени и описания при открытии попапа профиля
@@ -52,7 +51,7 @@ function openProfilePopup() {
 }
 
 //ф-я редактирования данных профиля
-function submitForm(event) {
+function submitAddCardForm(event) {
     event.preventDefault();
     name.textContent = popupInputTypeName.value;
     description.textContent = popupInputTypeDescription.value;
@@ -100,7 +99,7 @@ addForm.addEventListener('submit', () => {
     }
     addForm.reset();        
     closePopup(popupAddCard);
-    setButtonState(submitButton, false, validationConfig);
+    setButtonState(submitAddCardButton, false, validationConfig);
     renderCard(createCard(data));
 });
 
@@ -134,7 +133,7 @@ render();
 enableValidation(validationConfig);
 
 //слушатели
-popupform.addEventListener('submit', submitForm);
+popupform.addEventListener('submit', submitAddCardForm);
 editButton.addEventListener('click', () => openProfilePopup(popupEdit));
 addButton.addEventListener('click', () => showPopup(popupAddCard));
 popupAddCloseButton.addEventListener('click', () => closePopup(popupAddCard));
