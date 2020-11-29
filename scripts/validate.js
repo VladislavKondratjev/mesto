@@ -70,9 +70,10 @@ function enableValidation(config) {
 }
 
 //сброс полей валидации
-// function resetValidation(form, config) {
-//     const inputsList = document.querySelectorAll(config.inputSelector);
-//     inputsList.forEach((input) => {
-//         hideError(form, input, config)
-//     })
-// }
+//  function resetValidation(form, config) {
+//      const inputsList = document.querySelectorAll('.popup__input');
+//      console.log(inputsList);
+//      inputsList.forEach((input) => {
+//          hideError(form, input, config)
+//      });
+//  }

@@ -12,6 +12,7 @@ const popupAddCloseButton = popupAddCard.querySelector('.popup__close-button');
 const popupOpenImageCloseButton = popupOpenImage.querySelector('.popup__close-button');
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
+const submitButton = popupAddCard.querySelector('.popup__submit-button')
 //выбираем имя и описание профиля
 const name = document.querySelector('.profile__name');
 const description = document.querySelector('.profile__description');
@@ -19,39 +20,14 @@ const description = document.querySelector('.profile__description');
 const elements = document.querySelector('.elements');
 const addForm = document.querySelector('.add-element-form');
 const elementTemplate = document.querySelector('.element-template').content;
-//массив исходных данных
-const initialCards = [
-    {
-        place: 'Я и JS',
-        link: 'https://sun9-76.userapi.com/bdz_-dS1jkT59AA17nnzdnPcPjOF1JBAu6yjMg/RhBfCd6i0c4.jpg'
-    },
-    {
-        place: 'Адаптив',
-        link: 'https://i.forfun.com/j95a6ukr.jpeg'
-    },
-    {
-        place: 'Сдал работу с первого раза',
-        link: 'https://memepedia.ru/wp-content/uploads/2019/03/u-suka-10.jpg'
-    },
-    {
-        place: 'Фронтендек',
-        link: 'https://memepedia.ru/wp-content/uploads/2019/10/chipseki-mem.png'
-    },
-    {
-        place: 'Как работает JavaScript',
-        link: 'https://iknowyourmeme.files.wordpress.com/2016/12/2bb6dc0db7452e1.png'
-    },
-    {
-        place: 'Байкал',
-        link: 'https://sun9-75.userapi.com/Du8H7YDwDV3fRVRqrm47IONr9jJB0VPqE3Ejew/-okoCzFyrtA.jpg'
-    }
-];
 //выбираем элементы карточки для открытия на весь экран
 const photo = document.querySelector('.popup__image');
 const place = document.querySelector('.popup__caption');
 //выбираем инпуты попапа добавления карточки
 const elementAddPhoto = addForm.querySelector('.popup__input_type_photo');
 const elementAddPlace = addForm.querySelector('.popup__input_type_place');
+//выбор кнопки закрытия
+const ESC_KEY = 'Escape';
 
 //ф-я откртия попапов
 function showPopup(popup) {
@@ -68,15 +44,8 @@ function closePopup(popup) {
     addForm.reset();
 }
 
-//сброс введённых данных при закрытии попапа профиля
-function resetProfilePopup() {
-    popupInputTypeName.value = '';
-    popupInputTypeDescription.value = '';
-    closePopup(popupEdit);
-}
-
 //перенос имени и описания при открытии попапа профиля
-function insertData() {
+function openProfilePopup() {
     popupInputTypeName.value = name.textContent;
     popupInputTypeDescription.value = description.textContent;
     showPopup(popupEdit);
@@ -102,11 +71,8 @@ function createCard(data) {
     elementPlace.textContent = data.place;
 
     elementDeleteButton.addEventListener('click', event => {
-        const element = event.target.closest('.element')
-        
-        if (element) {
-            element.remove()
-        }
+        const elementCard = event.target.closest('.element')
+        elementCard.remove()
     })
     
     elementLikeButton.addEventListener('click', event => {
@@ -127,15 +93,14 @@ function showPopupOpenImage(src, alt) {
 }
 
 //Функия добавления карточки
-addForm.addEventListener('submit', event => {
-    event.preventDefault();
+addForm.addEventListener('submit', () => {
     const data = {
         link: elementAddPhoto.value,
         place: elementAddPlace.value
     }
-    
     addForm.reset();        
     closePopup(popupAddCard);
+    setButtonState(submitButton, false, validationConfig);
     renderCard(createCard(data));
 });
 
@@ -152,7 +117,7 @@ function render() {
 
 //закрытие попапа по нажтию на ESC
 function keyHandler(evt) {
-    if (evt.key === 'Escape') {
+    if (evt.key === ESC_KEY) {
         closePopup(document.querySelector('.popup_opened'));
     }
 }
@@ -160,7 +125,7 @@ function keyHandler(evt) {
 //зыкрытие по клику на оверлей
 function closePopupOverlay(evt) {
     if (evt.target.classList.contains('popup')) {
-        closePopup(document.querySelector('.popup_opened'))
+        closePopup(evt.target);
     }
 }
 
@@ -170,7 +135,7 @@ enableValidation(validationConfig);
 
 //слушатели
 popupform.addEventListener('submit', submitForm);
-editButton.addEventListener('click', () => insertData(popupEdit));
+editButton.addEventListener('click', () => openProfilePopup(popupEdit));
 addButton.addEventListener('click', () => showPopup(popupAddCard));
 popupAddCloseButton.addEventListener('click', () => closePopup(popupAddCard));
 popupEditCloseButton.addEventListener('click', () =>  closePopup(popupEdit));
