@@ -1,4 +1,8 @@
-// //выбираем попапы
+import Card from '../components/Card.js';
+import FormValidator from '../components/FormValidator.js';
+import { initialCards, validationConfig, ESC_KEY } from '../utils/constants.js';
+
+//выбираем попапы
 const popupEdit = document.querySelector('.popup_type_edit');
 const popupAddCard = document.querySelector('.popup_type_add-card');
 const popupOpenImage = document.querySelector('.popup_type_image');
@@ -19,15 +23,14 @@ const description = document.querySelector('.profile__description');
 //выбираем грид и форму 
 const elements = document.querySelector('.elements');
 const addForm = document.querySelector('.add-element-form');
-const elementTemplate = document.querySelector('.element-template').content;
+// const elementTemplate = document.querySelector('.element-template').content;
 //выбираем элементы карточки для открытия на весь экран
 const photo = document.querySelector('.popup__image');
 const place = document.querySelector('.popup__caption');
 //выбираем инпуты попапа добавления карточки
 const elementAddPhoto = addForm.querySelector('.popup__input_type_photo');
 const elementAddPlace = addForm.querySelector('.popup__input_type_place');
-//выбор кнопки закрытия
-const ESC_KEY = 'Escape';
+
 
 //ф-я откртия попапов
 function showPopup(popup) {
@@ -58,31 +61,6 @@ function submitAddCardForm(event) {
     closePopup(popupEdit);
 }
 
-//ф-я добавления карточек из массива
-function createCard(data) {
-    const elementCard = elementTemplate.cloneNode(true);
-    const elementPhoto = elementCard.querySelector('.element__photo');
-    const elementPlace = elementCard.querySelector('.element__place');
-    const elementDeleteButton = elementCard.querySelector('.element__delete-button');
-    const elementLikeButton = elementCard.querySelector('.element__like-button');
-    
-    elementPhoto.src = data.link;
-    elementPlace.textContent = data.place;
-
-    elementDeleteButton.addEventListener('click', event => {
-        const elementCard = event.target.closest('.element')
-        elementCard.remove()
-    })
-    
-    elementLikeButton.addEventListener('click', event => {
-        event.target.classList.toggle('element__like-button_type_active');    
-    })
-    
-    elementPhoto.addEventListener('click', () => showPopupOpenImage(data.link, data.place));
-
-    return elementCard;
-}
-
 //ф-я просмотра фото
 function showPopupOpenImage(src, alt) {
     photo.src = src;
@@ -99,20 +77,23 @@ addForm.addEventListener('submit', () => {
     }
     addForm.reset();        
     closePopup(popupAddCard);
-    setButtonState(submitAddCardButton, false, validationConfig);
-    renderCard(createCard(data));
+    const card = new Card(data, '.element-template', showPopupOpenImage);
+    const elementCard = card.generateCard();
+    elements.prepend(elementCard);
 });
 
-function renderCard(cardElement) {
-	elements.prepend(cardElement)
-}
+
 
 //отрисовка карточек
 function render() {
-    initialCards.forEach(data => {
-        renderCard(createCard(data));
+    initialCards.forEach((element) => {
+        const card = new Card(element, '.element-template', showPopupOpenImage);
+        const elementCard = card.generateCard();
+        elements.append(elementCard);
     });
 }
+render();
+
 
 //закрытие попапа по нажтию на ESC
 function keyHandler(evt) {
@@ -128,9 +109,10 @@ function closePopupOverlay(evt) {
     }
 }
 
-//вызовы функций
-render();
-enableValidation(validationConfig);
+const editFormValidator = new FormValidator(validationConfig, popupform);
+editFormValidator.enableValidation();
+const addFormValidator = new FormValidator(validationConfig, addForm);
+addFormValidator.enableValidation();
 
 //слушатели
 popupform.addEventListener('submit', submitAddCardForm);

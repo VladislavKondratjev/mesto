@@ -1,5 +1,5 @@
 //массив исходных данных
-const initialCards = [
+export const initialCards = [
     {
         place: 'Я и JS',
         link: 'https://sun9-76.userapi.com/bdz_-dS1jkT59AA17nnzdnPcPjOF1JBAu6yjMg/RhBfCd6i0c4.jpg'
@@ -25,3 +25,14 @@ const initialCards = [
         link: 'https://sun9-75.userapi.com/Du8H7YDwDV3fRVRqrm47IONr9jJB0VPqE3Ejew/-okoCzFyrtA.jpg'
     }
 ];
+
+export const validationConfig = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__submit-button',
+    inactiveButtonClass: 'popup__submit-button_type_inactive',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'error'
+}
+
+export const ESC_KEY = 'Escape';
