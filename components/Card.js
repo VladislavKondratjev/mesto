@@ -26,7 +26,7 @@ export default class Card {
         });
             
         this._element.querySelector('.element__photo').addEventListener('click', () =>
-            this._popupOpenImage(this._photo, this._place, this._place));
+            this._popupOpenImage(this._photo, this._place));
     }
 
     _handleLikeClick() {
@@ -36,6 +36,7 @@ export default class Card {
     generateCard() {
         this._element = this._getTemplate();
         this._element.querySelector('.element__photo').src = this._photo;
+        this._element.querySelector('.element__photo').alt = this._place;
         this._element.querySelector('.element__place').textContent = this._place;
         this._setEventListeners();
 
