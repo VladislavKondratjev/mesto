@@ -2,7 +2,6 @@ export default class FormValidator {
     constructor(config, form) {
         this._config = config;
         this._form = form;
-        this.form = document.querySelector(this._formElement);
     }
 
     _showError(form, input) {
@@ -47,7 +46,7 @@ export default class FormValidator {
         });
     }
 
-    enableValidation () {
+    enableValidation() {
         this._form.addEventListener('submit', (evt) => {
             evt.preventDefault();
         });
@@ -55,4 +54,13 @@ export default class FormValidator {
         const submitButton = this._form.querySelector(this._config.submitButtonSelector); 
         this._setButtonState(submitButton, this._form.checkValidity()); 
     }
+
 }
+//сброс полей валидации, на будущее
+//  function resetValidation(form, config) {
+//      const inputsList = document.querySelectorAll('.popup__input');
+//      console.log(inputsList);
+//      inputsList.forEach((input) => {
+//          hideError(form, input, config)
+//      });
+//  }

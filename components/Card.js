@@ -21,9 +21,8 @@ export default class Card {
             this._handleLikeClick();
         });
             
-        this._element.querySelector('.element__delete-button').addEventListener('click', event => {
-            const elementCard = event.target.closest('.element')
-            elementCard.remove()
+        this._element.querySelector('.element__delete-button').addEventListener('click', () => {
+            this._element.remove()
         });
             
         this._element.querySelector('.element__photo').addEventListener('click', () =>
