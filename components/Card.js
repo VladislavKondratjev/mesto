@@ -22,7 +22,8 @@ export default class Card {
         });
             
         this._element.querySelector('.element__delete-button').addEventListener('click', () => {
-            this._element.remove()
+            this._element.remove();
+            this._element = null;
         });
             
         this._element.querySelector('.element__photo').addEventListener('click', () =>

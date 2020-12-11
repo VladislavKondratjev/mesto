@@ -55,6 +55,13 @@ export default class FormValidator {
         this._setButtonState(submitButton, this._form.checkValidity()); 
     }
 
+    // resetValidation(form, config) {
+    //     const inputsList = document.querySelectorAll('.popup__input');
+    //     inputsList.forEach((input) => {
+    //         _hideError(form, input, config)
+    //     });
+    // }
+
 }
 //сброс полей валидации, на будущее
 //  function resetValidation(form, config) {

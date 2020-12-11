@@ -16,7 +16,6 @@ const popupAddCloseButton = popupAddCard.querySelector('.popup__close-button');
 const popupOpenImageCloseButton = popupOpenImage.querySelector('.popup__close-button');
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
-const submitAddCardButton = popupAddCard.querySelector('.popup__submit-button')
 //выбираем имя и описание профиля
 const name = document.querySelector('.profile__name');
 const description = document.querySelector('.profile__description');
@@ -80,10 +79,11 @@ addForm.addEventListener('submit', () => {
     const data = {
         link: elementAddPhoto.value,
         place: elementAddPlace.value
-    }
+    };
     addForm.reset();        
     closePopup(popupAddCard);
     createCard(data, '.element-template', showPopupOpenImage);
+    addFormValidator.resetValidation();
 });
 
 
