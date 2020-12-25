@@ -1,0 +1,19 @@
+{
+  "name": "mesto",
+  "version": "0.0.1",
+  "description": "* HTML\r * CSS\r * JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VladislavKondratjev/mesto.git"
+  },
+  "author": "Vladislav Kondratjev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VladislavKondratjev/mesto/issues"
+  },
+  "homepage": "https://github.com/VladislavKondratjev/mesto#readme"
+}
