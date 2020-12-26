@@ -2,6 +2,8 @@ import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import Section from '../components/Section.js';
+
 import {
     initialCards,
     validationConfig,
@@ -53,12 +55,12 @@ function showPopupOpenImage(data) {
     popupClassOpenImage.open(data.link, data.place);
 }
 
-function createCard(data) {
-    const card = new Card(data, () => popupClassOpenImage.open(data.link, data.place), '.element-template');
-    const elementCard = card.generateCard();
-    elements.prepend(elementCard);
-    console.log(data)
-}
+// function createCard(data) {
+//     const card = new Card(data, () => popupClassOpenImage.open(data.link, data.place), '.element-template');
+//     const elementCard = card.generateCard();
+//     elements.prepend(elementCard);
+//     console.log(data);
+// }
 
 //Функия добавления карточки
 addForm.addEventListener('submit', () => {
@@ -69,15 +71,19 @@ addForm.addEventListener('submit', () => {
     addForm.reset();
     addCardForm.close(popupAddCard)
     createCard(data);
-
+    console.log(data);
 });
 //отрисовка карточек
-function render() {
-    initialCards.forEach((item) => {
-        createCard(item, showPopupOpenImage, '.element-template');
-    });
-}
-render();
+const cardList = new Section({
+    items: initialCards,
+    renderer: (data) => {
+        const card = new Card(data, () => popupClassOpenImage.open(data.link, data.place), '.element-template');
+        const elementCard = card.generateCard();
+        cardList.addItem(elementCard);
+    }
+}, elements
+);
+cardList.renderItems();
 
 function resetAddForm() {
     addFormValidator.resetValidation();
