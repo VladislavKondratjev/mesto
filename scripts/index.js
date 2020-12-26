@@ -29,11 +29,7 @@ import {
 const editFormValidator = new FormValidator(validationConfig, popupForm);
 const addFormValidator = new FormValidator(validationConfig, addForm);
 const editForm = new PopupWithForm(popupEdit, submitAddCardForm);
-const addCardForm = new PopupWithForm(popupAddCard, () => createCard);
 const popupClassOpenImage = new PopupWithImage(popupOpenImage);
-editForm.setEventListeners();
-addCardForm.setEventListeners();
-popupClassOpenImage.setEventListeners();
 
 //перенос имени и описания при открытии попапа профиля
 function openProfilePopup() {
@@ -50,29 +46,30 @@ function submitAddCardForm() {
     editForm.close(popupEdit);
 }
 
-//ф-я просмотра фото
-function showPopupOpenImage(data) {
-    popupClassOpenImage.open(data.link, data.place);
+
+function createCard(item) {
+    const card = new Card(item, (item) => {
+        popupImage.open(item.name, item.link)
+    }, '.element-template');
+    return card.generateCard();
 }
 
-// function createCard(data) {
-//     const card = new Card(data, () => popupClassOpenImage.open(data.link, data.place), '.element-template');
-//     const elementCard = card.generateCard();
-//     elements.prepend(elementCard);
-//     console.log(data);
-// }
+const addCardForm = new PopupWithForm(popupAddCard, (data) => {
+    const cardElement = createCard(data)
+    newCardSection.newItem(cardElement);
+})
 
-//Функия добавления карточки
-addForm.addEventListener('submit', () => {
-    const data = {
-        link: elementAddPhoto.value,
-        place: elementAddPlace.value
-    };
-    addForm.reset();
-    addCardForm.close(popupAddCard)
-    createCard(data);
-    console.log(data);
-});
+const newCardSection = new Section({
+    items: [{
+        name: elementAddPlace.value,
+        link: elementAddPhoto.value
+    }],
+    renderer: (item) => {
+        const cardElement = createCard(item);
+        newCardSection.newItem(cardElement);
+    }
+}, elements);
+
 //отрисовка карточек
 const cardList = new Section({
     items: initialCards,
@@ -95,6 +92,9 @@ editFormValidator.enableValidation();
 addFormValidator.enableValidation();
 
 //слушатели
+editForm.setEventListeners();
+addCardForm.setEventListeners();
+popupClassOpenImage.setEventListeners();
 popupForm.addEventListener('submit', submitAddCardForm);
 editButton.addEventListener('click', openProfilePopup);
 addButton.addEventListener('click', () => resetAddForm());
