@@ -1,19 +1,25 @@
 import Popup from './Popup.js';
+import { addForm } from '../utils/constants.js';
 
 export default class PopupWithForm extends Popup {
-    constructor(popupSelector, inputList, formValues) {
+    constructor(popupSelector, handleFormSubmit) {
         super(popupSelector);
-        this._inputList = inputList;
-        this._formValues = formValues;
+        this._handleFormSubmit = handleFormSubmit;
+        this._form = this._popupSelector.querySelector('.popup__form');
     }
 
     setEventListeners() {
-        super.setEventListeners()
+        super.setEventListeners();
+        this._form.addEventListener('submit', (evt) => {
+            evt.preventDefault();
+            this._handleFormSubmit(this._getInputValues());
+            this.close();
+        });
     }
 
     _getInputValues() {
         // достаём все элементы полей
-        this._inputList = this._element.querySelectorAll('.form__input');
+        this._inputList = this._form.querySelectorAll('.popup__input');
 
         // создаём пустой объект
         this._formValues = {};
@@ -26,4 +32,10 @@ export default class PopupWithForm extends Popup {
         // возвращаем объект значений
         return this._formValues;
     }
+
+    close() {
+        super.close();
+        addForm.reset();
+    }
+
 }
