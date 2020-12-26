@@ -3,6 +3,7 @@ import FormValidator from '../components/FormValidator.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import Section from '../components/Section.js';
+import UserInfo from '../components/UserInfo.js';
 
 import {
     initialCards,
@@ -28,29 +29,33 @@ import {
 
 const editFormValidator = new FormValidator(validationConfig, popupForm);
 const addFormValidator = new FormValidator(validationConfig, addForm);
-const editForm = new PopupWithForm(popupEdit, submitAddCardForm);
 const popupClassOpenImage = new PopupWithImage(popupOpenImage);
+const editForm = new PopupWithForm(popupEdit);
+editForm.setEventListeners();
 
 //перенос имени и описания при открытии попапа профиля
 function openProfilePopup() {
-    popupInputTypeName.value = name.textContent;
-    popupInputTypeDescription.value = description.textContent;
-    editForm.open(popupEdit);
+    const userInfo = new UserInfo(name.value, description.value);
+    //userInfo.getUserInfo()
+    // popupInputTypeName.value = name.textContent;
+    // popupInputTypeDescription.value = description.textContent;
+    editForm.open();
+    userInfo.getUserInfo();
     editFormValidator.resetValidation();
 }
-
 //ф-я редактирования данных профиля
 function submitAddCardForm() {
-    name.textContent = popupInputTypeName.value;
-    description.textContent = popupInputTypeDescription.value;
+    // name.textContent = popupInputTypeName.value;
+    // description.textContent = popupInputTypeDescription.value;
+    const userInfo = new UserInfo(name, description);
+    userInfo.setUserInfo()
     editForm.close(popupEdit);
 }
-
+editButton.addEventListener('click', openProfilePopup);
+popupForm.addEventListener('submit', submitAddCardForm);
 
 function createCard(item) {
-    const card = new Card(item, (item) => {
-        popupImage.open(item.name, item.link)
-    }, '.element-template');
+    const card = new Card(item, () => popupClassOpenImage.open(item.link, item.place), '.element-template');
     return card.generateCard();
 }
 
@@ -92,11 +97,8 @@ editFormValidator.enableValidation();
 addFormValidator.enableValidation();
 
 //слушатели
-editForm.setEventListeners();
 addCardForm.setEventListeners();
 popupClassOpenImage.setEventListeners();
-popupForm.addEventListener('submit', submitAddCardForm);
-editButton.addEventListener('click', openProfilePopup);
 addButton.addEventListener('click', () => resetAddForm());
 popupAddCloseButton.addEventListener('click', () => addCardForm.close(popupAddCard));
 popupEditCloseButton.addEventListener('click', () => editForm.close(popupEdit));

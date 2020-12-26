@@ -2,10 +2,8 @@ export default class Card {
     constructor(data, showPopupOpenImage, cardSelector) {
         this._photo = data.link;
         this._place = data.place;
-        //this._initialCards = data;
         this._cardSelector = cardSelector;
         this._showPopupOpenImage = showPopupOpenImage;
-        this._showPopupOpenImageHandler = this._showPopupOpenImage.bind(this)
     }
 
     _getTemplate() {
@@ -28,7 +26,7 @@ export default class Card {
             this._element = null;
         });
 
-        this._element.querySelector('.element__photo').addEventListener('click', () => this._showPopupOpenImageHandler());
+        this._element.querySelector('.element__photo').addEventListener('click', () => this._showPopupOpenImage(this._photo, this._place));
 
     }
 
@@ -46,8 +44,5 @@ export default class Card {
         return this._element;
     }
 
-    _showPopupOpenImageHandler() {
-        this._showPopupOpenImage(this._photo, this._place);
-    }
 }
 
