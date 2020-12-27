@@ -1,4 +1,4 @@
-import { ESC_KEY } from '../utils/constants.js';
+import { ESC_KEY } from '../../src/utils/constants.js';
 
 export default class Popup {
     constructor(popupSelector) {

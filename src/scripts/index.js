@@ -31,14 +31,16 @@ const editFormValidator = new FormValidator(validationConfig, popupForm);
 const addFormValidator = new FormValidator(validationConfig, addForm);
 const popupClassOpenImage = new PopupWithImage(popupOpenImage);
 const userInfo = new UserInfo(name, description);
-userInfo.getUserInfo();
 
 //перенос имени и описания при открытии попапа профиля
 function openProfilePopup() {
+    const userData = userInfo.getUserInfo();
+    popupInputTypeName.value = userData.name;
+    popupInputTypeDescription.value = userData.description;
     editForm.open();
     editFormValidator.resetValidation();
 }
-editButton.addEventListener('click', openProfilePopup);
+editButton.addEventListener('click', openProfilePopup)
 //ф-я редактирования данных профиля
 const editForm = new PopupWithForm(popupEdit, () => {
     userInfo.setUserInfo(popupInputTypeName.value, popupInputTypeDescription.value)
