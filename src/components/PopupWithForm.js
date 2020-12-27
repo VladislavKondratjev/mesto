@@ -1,5 +1,4 @@
 import Popup from './Popup.js';
-import { addForm } from '../utils/constants.js';
 
 export default class PopupWithForm extends Popup {
     constructor(popupSelector, handleFormSubmit) {
@@ -35,7 +34,7 @@ export default class PopupWithForm extends Popup {
 
     close() {
         super.close();
-        addForm.reset();
+        this._form.reset();
     }
 
 }
