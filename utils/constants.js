@@ -1,31 +1,31 @@
 //массив исходных данных
 export const initialCards = [
     {
-        place: 'Я и JS',
-        link: 'https://sun9-76.userapi.com/bdz_-dS1jkT59AA17nnzdnPcPjOF1JBAu6yjMg/RhBfCd6i0c4.jpg'
+        place: 'Санкт-Петербург',
+        link: 'https://allovertheus.ru/wp-content/uploads/2020/01/novogodnie-yolki-v-sankt-peterburge-v-yanvare.jpg'
     },
     {
-        place: 'Адаптив',
-        link: 'https://i.forfun.com/j95a6ukr.jpeg'
+        place: 'Самара',
+        link: 'https://static.ngs.ru/news/99/preview/bbfcce7e2c040d0b1bb65a3102356a9017dd36852_1900_1267.jpg'
     },
     {
-        place: 'Сдал работу с первого раза',
-        link: 'https://memepedia.ru/wp-content/uploads/2019/03/u-suka-10.jpg'
+        place: 'Казань',
+        link: 'https://i.ytimg.com/vi/Wn8wx3ieFZQ/maxresdefault.jpg'
     },
     {
-        place: 'Фронтендек',
-        link: 'https://memepedia.ru/wp-content/uploads/2019/10/chipseki-mem.png'
+        place: 'Москва',
+        link: 'https://img.fotokonkurs.ru/cache/photo_1000w/photos/2010/12/23/3/7168f69c348019d8a3c5a19b814ca4cb/23249c099330217b.jpg'
     },
     {
-        place: 'Как работает JavaScript',
-        link: 'https://iknowyourmeme.files.wordpress.com/2016/12/2bb6dc0db7452e1.png'
+        place: 'Нижний Новгород',
+        link: 'https://mtdata.ru/u4/photo1F1F/20574129751-0/original.jpg'
     },
     {
-        place: 'Байкал',
-        link: 'https://sun9-75.userapi.com/Du8H7YDwDV3fRVRqrm47IONr9jJB0VPqE3Ejew/-okoCzFyrtA.jpg'
+        place: 'Красноярск',
+        link: 'https://www.trk7.ru/upload/iblock/7a4/7a44e3f7c2c4d0e0f5c6b9215c68abd6.jpg'
     }
 ];
-
+//выбираем элементы формы
 export const validationConfig = {
     formSelector: '.popup__form',
     inputSelector: '.popup__input',

@@ -30,29 +30,22 @@ import {
 const editFormValidator = new FormValidator(validationConfig, popupForm);
 const addFormValidator = new FormValidator(validationConfig, addForm);
 const popupClassOpenImage = new PopupWithImage(popupOpenImage);
-const editForm = new PopupWithForm(popupEdit);
-editForm.setEventListeners();
+const userInfo = new UserInfo(name, description);
+userInfo.getUserInfo();
 
 //перенос имени и описания при открытии попапа профиля
 function openProfilePopup() {
-    const userInfo = new UserInfo(name.value, description.value);
-    //userInfo.getUserInfo()
-    // popupInputTypeName.value = name.textContent;
-    // popupInputTypeDescription.value = description.textContent;
     editForm.open();
-    userInfo.getUserInfo();
     editFormValidator.resetValidation();
 }
-//ф-я редактирования данных профиля
-function submitAddCardForm() {
-    // name.textContent = popupInputTypeName.value;
-    // description.textContent = popupInputTypeDescription.value;
-    const userInfo = new UserInfo(name, description);
-    userInfo.setUserInfo()
-    editForm.close(popupEdit);
-}
 editButton.addEventListener('click', openProfilePopup);
-popupForm.addEventListener('submit', submitAddCardForm);
+//ф-я редактирования данных профиля
+const editForm = new PopupWithForm(popupEdit, () => {
+    userInfo.setUserInfo(popupInputTypeName.value, popupInputTypeDescription.value)
+    editForm.close(popupEdit);
+});
+editForm.setEventListeners();
+
 
 function createCard(item) {
     const card = new Card(item, () => popupClassOpenImage.open(item.link, item.place), '.element-template');
@@ -90,7 +83,7 @@ cardList.renderItems();
 function resetAddForm() {
     addFormValidator.resetValidation();
     addForm.reset();
-    addCardForm.open(popupAddCard);
+    addCardForm.open();
 }
 //вызов валидаоров форм
 editFormValidator.enableValidation();
@@ -100,6 +93,6 @@ addFormValidator.enableValidation();
 addCardForm.setEventListeners();
 popupClassOpenImage.setEventListeners();
 addButton.addEventListener('click', () => resetAddForm());
-popupAddCloseButton.addEventListener('click', () => addCardForm.close(popupAddCard));
-popupEditCloseButton.addEventListener('click', () => editForm.close(popupEdit));
-popupOpenImageCloseButton.addEventListener('click', () => popupClassOpenImage.close(popupOpenImage));
+popupAddCloseButton.addEventListener('click', () => addCardForm.close());
+popupEditCloseButton.addEventListener('click', () => editForm.close());
+popupOpenImageCloseButton.addEventListener('click', () => popupClassOpenImage.close());
