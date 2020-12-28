@@ -61,3 +61,4 @@ export const place = document.querySelector('.popup__caption');
 //выбираем инпуты попапа добавления карточки
 export const elementAddPhoto = addForm.querySelector('.popup__input_type_photo');
 export const elementAddPlace = addForm.querySelector('.popup__input_type_place');
+export const template = '.element-template';

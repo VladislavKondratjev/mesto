@@ -1,4 +1,4 @@
-import '../pages/index.css';
+import './index.css';
 
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
@@ -26,7 +26,8 @@ import {
     elements,
     addForm,
     elementAddPhoto,
-    elementAddPlace
+    elementAddPlace,
+    template
 } from '../utils/constants.js';
 
 const editFormValidator = new FormValidator(validationConfig, popupForm);
@@ -52,7 +53,7 @@ editForm.setEventListeners();
 
 
 function createCard(item) {
-    const card = new Card(item, () => popupClassOpenImage.open(item.link, item.place), '.element-template');
+    const card = new Card(item, () => popupClassOpenImage.open(item.link, item.place), template);
     return card.generateCard();
 }
 
@@ -76,7 +77,7 @@ const newCardSection = new Section({
 const cardList = new Section({
     items: initialCards,
     renderer: (data) => {
-        const card = new Card(data, () => popupClassOpenImage.open(data.link, data.place), '.element-template');
+        const card = new Card(data, () => popupClassOpenImage.open(data.link, data.place), template);
         const elementCard = card.generateCard();
         cardList.addItem(elementCard);
     }

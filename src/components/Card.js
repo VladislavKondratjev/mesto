@@ -26,18 +26,20 @@ export default class Card {
             this._element = null;
         });
 
-        this._element.querySelector('.element__photo').addEventListener('click', () => this._showPopupOpenImage(this._photo, this._place));
+        this._picture.addEventListener('click', () => this._showPopupOpenImage(this._photo, this._place));
 
     }
 
     _handleLikeClick() {
-        this._element.querySelector('.element__like-button').classList.toggle('element__like-button_type_active');
+        this.like = this._element.querySelector('.element__like-button');
+        this.like.classList.toggle('element__like-button_type_active');
     }
 
     generateCard() {
         this._element = this._getTemplate();
-        this._element.querySelector('.element__photo').src = this._photo;
-        this._element.querySelector('.element__photo').alt = this._place;
+        this._picture = this._element.querySelector('.element__photo');
+        this._picture.src = this._photo;
+        this._picture.alt = this._place;
         this._element.querySelector('.element__place').textContent = this._place;
         this._setEventListeners();
 
