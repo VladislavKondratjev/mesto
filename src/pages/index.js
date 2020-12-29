@@ -32,7 +32,7 @@ import {
 
 const editFormValidator = new FormValidator(validationConfig, popupForm);
 const addFormValidator = new FormValidator(validationConfig, addForm);
-const popupClassOpenImage = new PopupWithImage(popupOpenImage);
+const popupImage = new PopupWithImage(popupOpenImage);
 const userInfo = new UserInfo(name, description);
 
 //перенос имени и описания при открытии попапа профиля
@@ -43,17 +43,16 @@ function openProfilePopup() {
     editForm.open();
     editFormValidator.resetValidation();
 }
-editButton.addEventListener('click', openProfilePopup)
+
 //ф-я редактирования данных профиля
 const editForm = new PopupWithForm(popupEdit, () => {
-    userInfo.setUserInfo(popupInputTypeName.value, popupInputTypeDescription.value)
-    editForm.close(popupEdit);
+    userInfo.setUserInfo(popupInputTypeName.value, popupInputTypeDescription.value);
 });
 editForm.setEventListeners();
 
 
 function createCard(item) {
-    const card = new Card(item, () => popupClassOpenImage.open(item.link, item.place), template);
+    const card = new Card(item, () => popupImage.open(item.link, item.place), template);
     return card.generateCard();
 }
 
@@ -77,9 +76,8 @@ const newCardSection = new Section({
 const cardList = new Section({
     items: initialCards,
     renderer: (data) => {
-        const card = new Card(data, () => popupClassOpenImage.open(data.link, data.place), template);
-        const elementCard = card.generateCard();
-        cardList.addItem(elementCard);
+        const elementCard = createCard(data);
+        newCardSection.addItem(elementCard);
     }
 }, elements
 );
@@ -96,8 +94,9 @@ addFormValidator.enableValidation();
 
 //слушатели
 addCardForm.setEventListeners();
-popupClassOpenImage.setEventListeners();
+popupImage.setEventListeners();
+editButton.addEventListener('click', openProfilePopup);
 addButton.addEventListener('click', () => resetAddForm());
 popupAddCloseButton.addEventListener('click', () => addCardForm.close());
 popupEditCloseButton.addEventListener('click', () => editForm.close());
-popupOpenImageCloseButton.addEventListener('click', () => popupClassOpenImage.close());
+popupOpenImageCloseButton.addEventListener('click', () => popupImage.close());
