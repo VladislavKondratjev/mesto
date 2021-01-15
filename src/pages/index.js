@@ -1,14 +1,14 @@
 import './index.css';
-
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import Section from '../components/Section.js';
 import UserInfo from '../components/UserInfo.js';
-
+import Api from '../components/Api.js';
+import PopupConfirm from '../components/PopupConfirm.js';
 import {
-    initialCards,
+    //initialCards,
     validationConfig,
     popupEdit,
     popupAddCard,
@@ -34,7 +34,10 @@ const editFormValidator = new FormValidator(validationConfig, popupForm);
 const addFormValidator = new FormValidator(validationConfig, addForm);
 const popupImage = new PopupWithImage(popupOpenImage);
 const userInfo = new UserInfo(name, description);
-
+const api = new Api({
+    address: 'https://mesto.nomoreparties.co/v1/cohort-19',
+    token: 'cabe1d76-a428-4aaa-846e-7d735d853b84'
+})
 //перенос имени и описания при открытии попапа профиля
 function openProfilePopup() {
     const userData = userInfo.getUserInfo();
@@ -52,7 +55,7 @@ editForm.setEventListeners();
 
 
 function createCard(item) {
-    const card = new Card(item, () => popupImage.open(item.link, item.place), template);
+    const card = new Card(item, () => popupImage.open(item.link, item.name), template);
     return card.generateCard();
 }
 
@@ -73,15 +76,31 @@ const newCardSection = new Section({
 }, elements);
 
 //отрисовка карточек
-const cardList = new Section({
-    items: initialCards,
-    renderer: (data) => {
-        const elementCard = createCard(data);
-        newCardSection.addItem(elementCard);
-    }
-}, elements
-);
-cardList.renderItems();
+// const cardList = new Section({
+//     items: initialCards,
+//     renderer: (data) => {
+//         const elementCard = createCard(data);
+//         newCardSection.addItem(elementCard);
+//     }
+// }, elements
+// );
+// cardList.renderItems();
+
+api.getInitialCards()
+    .then((initialCards) => {
+        const cardList = new Section({
+            items: initialCards,
+            renderer: (data) => {
+                const elementCard = createCard(data);
+                newCardSection.addItem(elementCard);
+            }
+        }, elements
+        );
+        cardList.renderItems();
+        console.log(initialCards);
+        //newCardSection.renderItems(result)
+    })
+    .catch(err => console.log(err));
 
 function resetAddForm() {
     addFormValidator.resetValidation();

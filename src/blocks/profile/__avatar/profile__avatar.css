@@ -1,6 +1,17 @@
 .profile__avatar {
-    height: 120px;
-    width: 120px;
-    border-radius: 50%;
-    display: block;
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+  display: block;
+  transition: 0.3s;
+}
+
+.profile__avatar:hover {
+  background-image: url(../../../images/profile__avatar-edit-button.svg);
+  background-size: contain;
+  opacity: 0.8;
+  transition: 0.3s;
+  cursor: pointer;
+  background-position: center;
+  z-index: 1;
 }

@@ -1,30 +1,3 @@
-//массив исходных данных
-export const initialCards = [
-    {
-        place: 'Санкт-Петербург',
-        link: 'https://allovertheus.ru/wp-content/uploads/2020/01/novogodnie-yolki-v-sankt-peterburge-v-yanvare.jpg'
-    },
-    {
-        place: 'Самара',
-        link: 'https://static.ngs.ru/news/99/preview/bbfcce7e2c040d0b1bb65a3102356a9017dd36852_1900_1267.jpg'
-    },
-    {
-        place: 'Казань',
-        link: 'https://i.ytimg.com/vi/Wn8wx3ieFZQ/maxresdefault.jpg'
-    },
-    {
-        place: 'Москва',
-        link: 'https://img.fotokonkurs.ru/cache/photo_1000w/photos/2010/12/23/3/7168f69c348019d8a3c5a19b814ca4cb/23249c099330217b.jpg'
-    },
-    {
-        place: 'Нижний Новгород',
-        link: 'https://mtdata.ru/u4/photo1F1F/20574129751-0/original.jpg'
-    },
-    {
-        place: 'Красноярск',
-        link: 'https://www.trk7.ru/upload/iblock/7a4/7a44e3f7c2c4d0e0f5c6b9215c68abd6.jpg'
-    }
-];
 //выбираем элементы формы
 export const validationConfig = {
     formSelector: '.popup__form',

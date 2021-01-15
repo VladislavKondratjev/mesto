@@ -1,7 +1,7 @@
 export default class Card {
     constructor(data, showPopupOpenImage, cardSelector) {
         this._photo = data.link;
-        this._place = data.place;
+        this._name = data.name;
         this._cardSelector = cardSelector;
         this._showPopupOpenImage = showPopupOpenImage;
     }
@@ -26,7 +26,7 @@ export default class Card {
             this._element = null;
         });
 
-        this._picture.addEventListener('click', () => this._showPopupOpenImage(this._photo, this._place));
+        this._picture.addEventListener('click', () => this._showPopupOpenImage(this._photo, this._name));
 
     }
 
@@ -40,8 +40,8 @@ export default class Card {
         this._delete = this._element.querySelector('.element__delete-button')
         this._picture = this._element.querySelector('.element__photo');
         this._picture.src = this._photo;
-        this._picture.alt = this._place;
-        this._element.querySelector('.element__place').textContent = this._place;
+        this._picture.alt = this._name;
+        this._element.querySelector('.element__place').textContent = this._name;
         this._setEventListeners();
 
         return this._element;

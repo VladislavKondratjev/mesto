@@ -16,11 +16,13 @@
       </header>
       <main>
         <section class="profile">
+          <!-- <button class="profile__update-avatar-button"> -->
           <img
             class="profile__avatar"
             src="<%=require('./images/image.jpg')%>"
             alt="Аватар"
           />
+          <!-- </button> -->
           <div class="profile__info">
             <div class="profile__editor">
               <h1 class="profile__name">Владислав Кондратьев</h1>
@@ -92,7 +94,7 @@
               autocomplete="off"
               class="popup__input popup__input_type_place popup__input_type_modal"
               placeholder="Название"
-              name="place"
+              name="name"
               minlength="2"
               maxlength="30"
               required
@@ -124,6 +126,41 @@
           </figure>
         </div>
       </div>
+      <div class="popup popup_type_confirm">
+        <h3>Вы уверены?</h3>
+        <button class="button">Да</button>
+      </div>
+      <div class="popup popup_type_update-avavtar">
+        <div class="popup__content popup__content_type_new-card">
+          <button
+            type="button"
+            class="popup__close-button button popup__close-button_type_modal"
+          ></button>
+          <h3 class="popup__title popup__title_type_newplace">
+            Обновить аватар
+          </h3>
+          <form
+            class="popup__form popup__form_type_modal"
+            method="POST"
+            action="#"
+            name="add-card"
+          >
+            <input
+              id="url"
+              autocomplete="off"
+              class="popup__input popup__input_type_photo popup__input_type_modal"
+              placeholder="Ссылка на картинку"
+              name="link"
+              type="url"
+              required
+            />
+            <span id="url-error" class="error"></span>
+            <button type="submit" class="popup__submit-button">
+              Сохранить
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
     <template class="element-template">
       <article class="element">
@@ -132,6 +169,7 @@
         <div class="element__info">
           <h2 class="element__place"></h2>
           <button type="button" class="element__like-button button"></button>
+          <span class="element__likes"></span>
         </div>
       </article>
     </template>
