@@ -1,9 +1,11 @@
 export default class Card {
-    constructor(data, showPopupOpenImage, cardSelector) {
+    constructor(data, showPopupOpenImage, cardSelector, userId) {
         this._photo = data.link;
         this._name = data.name;
         this._cardSelector = cardSelector;
         this._showPopupOpenImage = showPopupOpenImage;
+        this._userId = userId;
+
     }
 
     _getTemplate() {

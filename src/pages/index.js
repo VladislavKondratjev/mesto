@@ -8,7 +8,6 @@ import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
 import PopupConfirm from '../components/PopupConfirm.js';
 import {
-    //initialCards,
     validationConfig,
     popupEdit,
     popupAddCard,
@@ -27,32 +26,49 @@ import {
     addForm,
     elementAddPhoto,
     elementAddPlace,
-    template
+    template,
+    popupAvatar,
+    avatar,
+    button
 } from '../utils/constants.js';
 
 const editFormValidator = new FormValidator(validationConfig, popupForm);
 const addFormValidator = new FormValidator(validationConfig, addForm);
+const avatarFormValidator = new FormValidator(validationConfig,)
 const popupImage = new PopupWithImage(popupOpenImage);
 const userInfo = new UserInfo(name, description);
 const api = new Api({
     address: 'https://mesto.nomoreparties.co/v1/cohort-19',
     token: 'cabe1d76-a428-4aaa-846e-7d735d853b84'
-})
+});
+const cardList = new Section((data) => {
+    const elementCard = createCard(data);
+    cardList.addItem(elementCard)
+}, elements)
+
 //перенос имени и описания при открытии попапа профиля
 function openProfilePopup() {
     const userData = userInfo.getUserInfo();
     popupInputTypeName.value = userData.name;
-    popupInputTypeDescription.value = userData.description;
+    popupInputTypeDescription.value = userData.about;
     editForm.open();
     editFormValidator.resetValidation();
 }
 
 //ф-я редактирования данных профиля
 const editForm = new PopupWithForm(popupEdit, () => {
-    userInfo.setUserInfo(popupInputTypeName.value, popupInputTypeDescription.value);
+    button.textContent = 'Сохранение...'
+    api.updateUserInfo({ name: popupInputTypeName.value, about: popupInputTypeDescription.value })
+        .then(({ name, about }) => {
+            userInfo.setUserInfo({ name, about })
+        })
+        .catch((err) => console.log(err))
+        .finally(() => {
+            button.textContent = 'Сохранить';
+        });
 });
-editForm.setEventListeners();
-
+// const avatarForm = new PopupWithForm(popupAvatar)
+// avatarForm.setEventListeners();
 
 function createCard(item) {
     const card = new Card(item, () => popupImage.open(item.link, item.name), template);
@@ -60,47 +76,31 @@ function createCard(item) {
 }
 
 const addCardForm = new PopupWithForm(popupAddCard, (data) => {
-    const cardElement = createCard(data)
-    newCardSection.newItem(cardElement);
+    button.textContent = 'Сохранение...'
+    api.postCard(data)
+        .then((res) => {
+
+            const cardElement = createCard(res)
+            cardList.newItem(cardElement);
+        })
+        .catch((err) => console.log(err))
+        .finally(() => {
+            button.textContent = 'Сохранить';
+        });
 })
 
-const newCardSection = new Section({
-    items: [{
-        name: elementAddPlace.value,
-        link: elementAddPhoto.value
-    }],
-    renderer: (item) => {
-        const cardElement = createCard(item);
-        newCardSection.newItem(cardElement);
-    }
-}, elements);
-
-//отрисовка карточек
-// const cardList = new Section({
-//     items: initialCards,
-//     renderer: (data) => {
-//         const elementCard = createCard(data);
-//         newCardSection.addItem(elementCard);
-//     }
-// }, elements
-// );
-// cardList.renderItems();
-
-api.getInitialCards()
-    .then((initialCards) => {
-        const cardList = new Section({
-            items: initialCards,
-            renderer: (data) => {
-                const elementCard = createCard(data);
-                newCardSection.addItem(elementCard);
-            }
-        }, elements
-        );
-        cardList.renderItems();
-        console.log(initialCards);
-        //newCardSection.renderItems(result)
+//отображение данных и карточек с сервера
+Promise.all([
+    api.getUserData(),
+    api.getInitialCards()
+])
+    .then((values) => {
+        const userValues = values[0];
+        const initialCards = values[1];
+        userInfo.setUserInfo(userValues);
+        cardList.renderItems(initialCards);
     })
-    .catch(err => console.log(err));
+    .catch((err) => console.log(err));
 
 function resetAddForm() {
     addFormValidator.resetValidation();
@@ -112,6 +112,7 @@ editFormValidator.enableValidation();
 addFormValidator.enableValidation();
 
 //слушатели
+editForm.setEventListeners();
 addCardForm.setEventListeners();
 popupImage.setEventListeners();
 editButton.addEventListener('click', openProfilePopup);
@@ -119,3 +120,4 @@ addButton.addEventListener('click', () => resetAddForm());
 popupAddCloseButton.addEventListener('click', () => addCardForm.close());
 popupEditCloseButton.addEventListener('click', () => editForm.close());
 popupOpenImageCloseButton.addEventListener('click', () => popupImage.close());
+//avatar.addEventListener('click', avatarForm)

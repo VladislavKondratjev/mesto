@@ -14,6 +14,8 @@ export const popupEdit = document.querySelector('.popup_type_edit');
 export const popupAddCard = document.querySelector('.popup_type_add-card');
 export const popupOpenImage = document.querySelector('.popup_type_image');
 export const popupForm = document.querySelector('.popup__form');
+export const popupAvatar = document.querySelector('.popup_type_update-avavtar');
+//инпуты полей ввода
 export const popupInputTypeName = document.querySelector('.popup__input_type_name');
 export const popupInputTypeDescription = document.querySelector('.popup__input_type_description');
 //выбираем кнопки
@@ -22,6 +24,8 @@ export const popupAddCloseButton = popupAddCard.querySelector('.popup__close-but
 export const popupOpenImageCloseButton = popupOpenImage.querySelector('.popup__close-button');
 export const editButton = document.querySelector('.profile__edit-button');
 export const addButton = document.querySelector('.profile__add-button');
+export const avatar = document.querySelector('.profile__avatar');
+export const button = document.querySelector('.popup__submit-button');
 //выбираем имя и описание профиля
 export const name = document.querySelector('.profile__name');
 export const description = document.querySelector('.profile__description');
