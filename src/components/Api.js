@@ -1,7 +1,8 @@
 export default class Api {
-    constructor({ address, token }) {
+    constructor({ address, token, userId }) {
         this._address = address;
         this._token = token;
+        this._userId = userId;
     }
     getInitialCards() {
         return fetch(`${this._address}/cards`, {
@@ -47,6 +48,43 @@ export default class Api {
                 name: data.name,
                 link: data.link
             })
+        })
+            .then(res => res.ok ? res.json() : Promise.reject(`Ошибка ${res.status}`))
+    }
+
+    postCard(data) {
+        return fetch(`${this._address}/cards`, {
+            method: 'DELETE',
+            headers: {
+                authorization: this._token,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: data.name,
+                link: data.link
+            })
+        })
+            .then(res => res.ok ? res.json() : Promise.reject(`Ошибка ${res.status}`))
+    }
+
+    putLike(id) {
+        return fetch(`${this._address}/cards/likes/${id}`, {
+            method: 'PUT',
+            headers: {
+                authorization: this._token,
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(res => res.ok ? res.json() : Promise.reject(`Ошибка ${res.status}`))
+    }
+
+    deleteLike(id) {
+        return fetch(`${this._address}/cards/likes/${id}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: this._token,
+                'Content-Type': 'application/json'
+            }
         })
             .then(res => res.ok ? res.json() : Promise.reject(`Ошибка ${res.status}`))
     }

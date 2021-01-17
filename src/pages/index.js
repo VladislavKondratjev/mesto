@@ -34,12 +34,13 @@ import {
 
 const editFormValidator = new FormValidator(validationConfig, popupForm);
 const addFormValidator = new FormValidator(validationConfig, addForm);
-const avatarFormValidator = new FormValidator(validationConfig,)
+const avatarFormValidator = new FormValidator(validationConfig, popupAvatar)
 const popupImage = new PopupWithImage(popupOpenImage);
 const userInfo = new UserInfo(name, description);
 const api = new Api({
     address: 'https://mesto.nomoreparties.co/v1/cohort-19',
-    token: 'cabe1d76-a428-4aaa-846e-7d735d853b84'
+    token: 'cabe1d76-a428-4aaa-846e-7d735d853b84',
+    userId: '787266997a5a6efee32292d8'
 });
 const cardList = new Section((data) => {
     const elementCard = createCard(data);
@@ -71,7 +72,43 @@ const editForm = new PopupWithForm(popupEdit, () => {
 // avatarForm.setEventListeners();
 
 function createCard(item) {
-    const card = new Card(item, () => popupImage.open(item.link, item.name), template);
+    const card = new Card(
+        item,
+        template,
+        api.userId,
+        {  //колбэки отвечающие за логику работы карточки
+            showPopupOpenImage: () => {
+                popupImage.open(item.link, item.name)
+                //...что должно произойти при клике на картинку
+            },
+            handleLikeClick: (carId, isLiked) => {
+                if (isLiked) {
+                    //отправляем запрос снятия лайка
+                    api.deleteLike(carId)
+                        .then((res) => {
+                            //вызываем метод карточки для обновления отображения лайков
+                            card.setLikes(res.likes)
+                        })
+                        .catch((err) => console.log(err))
+                } else {
+                    //отправляем запрос на установку лайка
+                    api.putLike(carId)
+                        .then((res) => {
+                            //вызываем метод карточки для обновления отображения лайков
+                            card.setLikes(res.likes)
+                        })
+                        .catch((err) => console.log(err))
+                }
+            },
+            // handleDeleteClick: () => {
+            //     api.removeMessage(card.getId())
+            //         .then(() => card.removeMessage())
+            //         .catch((err) => console.log(err))
+
+            //     //...что должно произойти при клике на удаление
+            // }
+        })
+
     return card.generateCard();
 }
 
@@ -79,7 +116,6 @@ const addCardForm = new PopupWithForm(popupAddCard, (data) => {
     button.textContent = 'Сохранение...'
     api.postCard(data)
         .then((res) => {
-
             const cardElement = createCard(res)
             cardList.newItem(cardElement);
         })
