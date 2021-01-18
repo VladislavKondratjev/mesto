@@ -16,8 +16,12 @@ export default class Api {
     getUserData() {
         return fetch(`${this._address}/users/me`, {
             headers: {
-                authorization: this._token
-            }
+                authorization: this._token,
+                'Content-Type': 'application/json'
+            },
+            // body: JSON.stringify({
+            //     id: data._id
+            // })
         })
             .then(res => res.ok ? res.json() : Promise.reject(`Ошибка ${res.status}`))
     }
@@ -31,7 +35,8 @@ export default class Api {
             },
             body: JSON.stringify({
                 name: data.name,
-                about: data.about
+                about: data.about,
+                _id: data._id
             })
         })
             .then(res => res.ok ? res.json() : Promise.reject(`Ошибка ${res.status}`))
@@ -52,7 +57,7 @@ export default class Api {
             .then(res => res.ok ? res.json() : Promise.reject(`Ошибка ${res.status}`))
     }
 
-    postCard(data) {
+    deletetCard(data) {
         return fetch(`${this._address}/cards`, {
             method: 'DELETE',
             headers: {

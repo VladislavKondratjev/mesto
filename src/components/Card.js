@@ -26,8 +26,8 @@ export default class Card {
         return this._cardId;
     }
 
-    isLiked() {
-        this._like.classList.contains('element__like-button_type_active')
+    _isLiked() {
+        return this._like.classList.contains('element__like-button_type_active')
     }
 
     isOwner() {
@@ -36,7 +36,7 @@ export default class Card {
 
     _setEventListeners() {
         this._like.addEventListener('click', () => {
-            this._handleLikeClick(this._cardId, this.isLiked());
+            this._handleLikeClick(this._cardId, this._isLiked());
         });
 
         this._delete.addEventListener('click', () => {
@@ -56,13 +56,13 @@ export default class Card {
 
     }
 
-    _cardIsLikedByCurrentUser() {
+    _cardIsLikedByCurrentUser(_userId) {
         for (let i = 0; i < this._likesArray.length; i++) {
             if (this._likesArray[i]._id === this._userId) {
                 return true
             }
-            return false;
         }
+        return false;
     }
 
     _likesCounter() {
@@ -77,7 +77,7 @@ export default class Card {
         this._likes.textContent = likesArray.length;
         this._likesArray = likesArray;
 
-        if (this._cardIsLikedByCurrentUser()) {
+        if (this._cardIsLikedByCurrentUser(this._userId)) {
             this._like.classList.add('element__like-button_type_active');
         } else {
             this._like.classList.remove('element__like-button_type_active');

@@ -46,7 +46,7 @@ const cardList = new Section((data) => {
     const elementCard = createCard(data);
     cardList.addItem(elementCard)
 }, elements)
-
+const userId = api.getUserData()
 //перенос имени и описания при открытии попапа профиля
 function openProfilePopup() {
     const userData = userInfo.getUserInfo();
@@ -70,32 +70,26 @@ const editForm = new PopupWithForm(popupEdit, () => {
 });
 // const avatarForm = new PopupWithForm(popupAvatar)
 // avatarForm.setEventListeners();
-
 function createCard(item) {
     const card = new Card(
         item,
         template,
-        api.userId,
-        {  //колбэки отвечающие за логику работы карточки
+        '787266997a5a6efee32292d8',
+        {
             showPopupOpenImage: () => {
                 popupImage.open(item.link, item.name)
-                //...что должно произойти при клике на картинку
             },
             handleLikeClick: (carId, isLiked) => {
                 if (isLiked) {
-                    //отправляем запрос снятия лайка
                     api.deleteLike(carId)
                         .then((res) => {
-                            //вызываем метод карточки для обновления отображения лайков
                             card.setLikes(res.likes)
                         })
                         .catch((err) => console.log(err))
                 } else {
-                    //отправляем запрос на установку лайка
                     api.putLike(carId)
                         .then((res) => {
-                            //вызываем метод карточки для обновления отображения лайков
-                            card.setLikes(res.likes)
+                            card.setLikes(res.likes);
                         })
                         .catch((err) => console.log(err))
                 }
@@ -124,7 +118,7 @@ const addCardForm = new PopupWithForm(popupAddCard, (data) => {
             button.textContent = 'Сохранить';
         });
 })
-
+console.log(api.getUserData())
 //отображение данных и карточек с сервера
 Promise.all([
     api.getUserData(),
