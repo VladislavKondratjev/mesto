@@ -16,13 +16,11 @@
       </header>
       <main>
         <section class="profile">
-          <!-- <button class="profile__update-avatar-button"> -->
           <img
             class="profile__avatar"
             src="<%=require('./images/image.jpg')%>"
             alt="Аватар"
           />
-          <!-- </button> -->
           <div class="profile__info">
             <div class="profile__editor">
               <h1 class="profile__name"></h1>
@@ -44,7 +42,7 @@
         <div class="popup__content">
           <button type="button" class="popup__close-button button"></button>
           <h3 class="popup__title">Редактировать профиль</h3>
-          <form class="popup__form" method="POST" action="#" name="edit-form">
+          <form class="popup__form" method="PATCH" action="#" name="edit-form">
             <input
               id="name"
               autocomplete="off"
@@ -128,8 +126,11 @@
       </div>
       <div class="popup popup_type_confirm">
         <div class="popup__content">
-          <h3>Вы уверены?</h3>
-          <button class="button">Да</button>
+          <button type="button" class="popup__close-button button"></button>
+          <h3 class="popup__title">Вы уверены?</h3>
+          <button type="submit" class="popup__submit-button delete-card">
+            Да
+          </button>
         </div>
       </div>
       <div class="popup popup_type_update-avavtar">
@@ -138,12 +139,10 @@
             type="button"
             class="popup__close-button button popup__close-button_type_modal"
           ></button>
-          <h3 class="popup__title popup__title_type_newplace">
-            Обновить аватар
-          </h3>
+          <h3 class="popup__title">Обновить аватар</h3>
           <form
             class="popup__form popup__form_type_modal"
-            method="POST"
+            method="PATCH"
             action="#"
             name="add-card"
           >

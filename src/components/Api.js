@@ -2,7 +2,6 @@ export default class Api {
     constructor({ address, token, userId }) {
         this._address = address;
         this._token = token;
-        this._userId = userId;
     }
     getInitialCards() {
         return fetch(`${this._address}/cards`, {
@@ -18,10 +17,7 @@ export default class Api {
             headers: {
                 authorization: this._token,
                 'Content-Type': 'application/json'
-            },
-            // body: JSON.stringify({
-            //     id: data._id
-            // })
+            }
         })
             .then(res => res.ok ? res.json() : Promise.reject(`Ошибка ${res.status}`))
     }
@@ -35,8 +31,21 @@ export default class Api {
             },
             body: JSON.stringify({
                 name: data.name,
-                about: data.about,
-                _id: data._id
+                about: data.about
+            })
+        })
+            .then(res => res.ok ? res.json() : Promise.reject(`Ошибка ${res.status}`))
+    }
+
+    updateAvatar(data) {
+        return fetch(`${this._address}/users/me`, {
+            method: 'PATCH',
+            headers: {
+                authorization: this._token,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                avatar: data.src
             })
         })
             .then(res => res.ok ? res.json() : Promise.reject(`Ошибка ${res.status}`))
@@ -57,17 +66,13 @@ export default class Api {
             .then(res => res.ok ? res.json() : Promise.reject(`Ошибка ${res.status}`))
     }
 
-    deletetCard(data) {
-        return fetch(`${this._address}/cards`, {
+    deletetCard(id) {
+        return fetch(`${this._address}/cards/${id}`, {
             method: 'DELETE',
             headers: {
                 authorization: this._token,
                 'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name: data.name,
-                link: data.link
-            })
+            }
         })
             .then(res => res.ok ? res.json() : Promise.reject(`Ошибка ${res.status}`))
     }

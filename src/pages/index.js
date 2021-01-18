@@ -18,6 +18,8 @@ import {
     popupEditCloseButton,
     popupAddCloseButton,
     popupOpenImageCloseButton,
+    popupConfirmCloseButton,
+    popupAvatarCloseButton,
     editButton,
     addButton,
     name,
@@ -29,24 +31,32 @@ import {
     template,
     popupAvatar,
     avatar,
-    button
-} from '../utils/constants.js';
+    button,
+    popupConfirmForm,
 
+} from '../utils/constants.js';
+let userId;
 const editFormValidator = new FormValidator(validationConfig, popupForm);
 const addFormValidator = new FormValidator(validationConfig, addForm);
 const avatarFormValidator = new FormValidator(validationConfig, popupAvatar)
 const popupImage = new PopupWithImage(popupOpenImage);
-const userInfo = new UserInfo(name, description);
+const userInfo = new UserInfo(name, description, avatar);
 const api = new Api({
     address: 'https://mesto.nomoreparties.co/v1/cohort-19',
-    token: 'cabe1d76-a428-4aaa-846e-7d735d853b84',
-    userId: '787266997a5a6efee32292d8'
+    token: 'cabe1d76-a428-4aaa-846e-7d735d853b84'
 });
+
+
+// console.log(deleteButton)
+const popupConfirm = new PopupConfirm(popupConfirmForm);
+popupConfirm.setEventListeners()
+// deleteButton.addEventListener('click', popupConfirm.open())
+// popupConfirm.setEventListeners();
+
 const cardList = new Section((data) => {
     const elementCard = createCard(data);
     cardList.addItem(elementCard)
 }, elements)
-const userId = api.getUserData()
 //перенос имени и описания при открытии попапа профиля
 function openProfilePopup() {
     const userData = userInfo.getUserInfo();
@@ -74,7 +84,7 @@ function createCard(item) {
     const card = new Card(
         item,
         template,
-        '787266997a5a6efee32292d8',
+        userId,
         {
             showPopupOpenImage: () => {
                 popupImage.open(item.link, item.name)
@@ -94,13 +104,18 @@ function createCard(item) {
                         .catch((err) => console.log(err))
                 }
             },
-            // handleDeleteClick: () => {
-            //     api.removeMessage(card.getId())
-            //         .then(() => card.removeMessage())
-            //         .catch((err) => console.log(err))
-
-            //     //...что должно произойти при клике на удаление
-            // }
+            handleDeleteClick: (carId) => {
+                console.log(popupConfirm.setSubmitAction())
+                popupConfirm.setSubmitAction(() => {
+                    api.deletetCard(carId)
+                        .then(() => {
+                            card.remove();
+                            popupConfirm.close();
+                        })
+                        .catch((err) => console.log(err))
+                });
+                popupConfirm.open();
+            }
         })
 
     return card.generateCard();
@@ -118,7 +133,6 @@ const addCardForm = new PopupWithForm(popupAddCard, (data) => {
             button.textContent = 'Сохранить';
         });
 })
-console.log(api.getUserData())
 //отображение данных и карточек с сервера
 Promise.all([
     api.getUserData(),
@@ -127,6 +141,7 @@ Promise.all([
     .then((values) => {
         const userValues = values[0];
         const initialCards = values[1];
+        userId = userValues._id;
         userInfo.setUserInfo(userValues);
         cardList.renderItems(initialCards);
     })
@@ -150,4 +165,5 @@ addButton.addEventListener('click', () => resetAddForm());
 popupAddCloseButton.addEventListener('click', () => addCardForm.close());
 popupEditCloseButton.addEventListener('click', () => editForm.close());
 popupOpenImageCloseButton.addEventListener('click', () => popupImage.close());
+popupConfirmCloseButton.addEventListener('click', () => popupConfirm.close());
 //avatar.addEventListener('click', avatarForm)

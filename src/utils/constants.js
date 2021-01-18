@@ -15,6 +15,7 @@ export const popupAddCard = document.querySelector('.popup_type_add-card');
 export const popupOpenImage = document.querySelector('.popup_type_image');
 export const popupForm = document.querySelector('.popup__form');
 export const popupAvatar = document.querySelector('.popup_type_update-avavtar');
+export const popupConfirmForm = document.querySelector('.popup_type_confirm')
 //инпуты полей ввода
 export const popupInputTypeName = document.querySelector('.popup__input_type_name');
 export const popupInputTypeDescription = document.querySelector('.popup__input_type_description');
@@ -22,10 +23,14 @@ export const popupInputTypeDescription = document.querySelector('.popup__input_t
 export const popupEditCloseButton = popupEdit.querySelector('.popup__close-button');
 export const popupAddCloseButton = popupAddCard.querySelector('.popup__close-button');
 export const popupOpenImageCloseButton = popupOpenImage.querySelector('.popup__close-button');
+export const popupConfirmCloseButton = popupConfirmForm.querySelector('.popup__close-button');
+export const popupAvatarCloseButton = popupAvatar.querySelector('.popup__close-button');
+
 export const editButton = document.querySelector('.profile__edit-button');
 export const addButton = document.querySelector('.profile__add-button');
 export const avatar = document.querySelector('.profile__avatar');
 export const button = document.querySelector('.popup__submit-button');
+export const deleteButton = document.querySelector('.element__delete-button')
 //выбираем имя и описание профиля
 export const name = document.querySelector('.profile__name');
 export const description = document.querySelector('.profile__description');
