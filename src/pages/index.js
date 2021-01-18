@@ -15,6 +15,7 @@ import {
     popupForm,
     popupInputTypeName,
     popupInputTypeDescription,
+    popupInputTypeAvatar,
     popupEditCloseButton,
     popupAddCloseButton,
     popupOpenImageCloseButton,
@@ -26,11 +27,9 @@ import {
     description,
     elements,
     addForm,
-    elementAddPhoto,
-    elementAddPlace,
     template,
     popupAvatar,
-    avatar,
+    avatarPic,
     button,
     popupConfirmForm,
 
@@ -38,9 +37,9 @@ import {
 let userId;
 const editFormValidator = new FormValidator(validationConfig, popupForm);
 const addFormValidator = new FormValidator(validationConfig, addForm);
-const avatarFormValidator = new FormValidator(validationConfig, popupAvatar)
+const avatarFormValidator = new FormValidator(validationConfig, popupForm)
 const popupImage = new PopupWithImage(popupOpenImage);
-const userInfo = new UserInfo(name, description, avatar);
+const userInfo = new UserInfo(name, description, avatarPic);
 const api = new Api({
     address: 'https://mesto.nomoreparties.co/v1/cohort-19',
     token: 'cabe1d76-a428-4aaa-846e-7d735d853b84'
@@ -78,8 +77,19 @@ const editForm = new PopupWithForm(popupEdit, () => {
             button.textContent = 'Сохранить';
         });
 });
-// const avatarForm = new PopupWithForm(popupAvatar)
-// avatarForm.setEventListeners();
+const avatarForm = new PopupWithForm(popupAvatar, () => {
+    button.textContent = 'Сохранение...'
+    api.updateAvatar({ avatar: popupInputTypeAvatar.value })
+        .then((res) => {
+            popupInputTypeAvatar.value = res.avatar;
+        })
+        .catch((err) => console.log(err))
+        .finally(() => {
+            button.textContent = 'Сохранить';
+        });
+})
+avatarForm.setEventListeners();
+
 function createCard(item) {
     const card = new Card(
         item,
@@ -105,7 +115,6 @@ function createCard(item) {
                 }
             },
             handleDeleteClick: (carId) => {
-                console.log(popupConfirm.setSubmitAction())
                 popupConfirm.setSubmitAction(() => {
                     api.deletetCard(carId)
                         .then(() => {
@@ -155,7 +164,7 @@ function resetAddForm() {
 //вызов валидаоров форм
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
-
+avatarFormValidator.enableValidation();
 //слушатели
 editForm.setEventListeners();
 addCardForm.setEventListeners();
@@ -166,4 +175,5 @@ popupAddCloseButton.addEventListener('click', () => addCardForm.close());
 popupEditCloseButton.addEventListener('click', () => editForm.close());
 popupOpenImageCloseButton.addEventListener('click', () => popupImage.close());
 popupConfirmCloseButton.addEventListener('click', () => popupConfirm.close());
-//avatar.addEventListener('click', avatarForm)
+popupAvatarCloseButton.addEventListener('click', () => popupAvatar.close());
+avatarPic.addEventListener('click', popupAvatar.open())

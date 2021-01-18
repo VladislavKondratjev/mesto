@@ -1,5 +1,5 @@
 export default class Api {
-    constructor({ address, token, userId }) {
+    constructor({ address, token }) {
         this._address = address;
         this._token = token;
     }
@@ -38,14 +38,14 @@ export default class Api {
     }
 
     updateAvatar(data) {
-        return fetch(`${this._address}/users/me`, {
+        return fetch(`${this._address}/users/me/avatar`, {
             method: 'PATCH',
             headers: {
                 authorization: this._token,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                avatar: data.src
+                avatar: data.avatar
             })
         })
             .then(res => res.ok ? res.json() : Promise.reject(`Ошибка ${res.status}`))
