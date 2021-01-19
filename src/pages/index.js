@@ -181,3 +181,6 @@ popupEditCloseButton.addEventListener('click', () => editForm.close());
 popupAvatarCloseButton.addEventListener('click', () => avatarForm.close());
 popupConfirmCloseButton.addEventListener('click', () => popupConfirm.close());
 popupOpenImageCloseButton.addEventListener('click', () => popupImage.close());
+
+console.log(popupOpenImageCloseButton.addEventListener('click', () => popupImage.close()))
+console.log(popupAvatarCloseButton.addEventListener('click', () => avatarForm.close()))

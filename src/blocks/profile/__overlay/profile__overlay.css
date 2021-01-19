@@ -7,7 +7,6 @@
   width: 120px;
   border-radius: 50%;
   cursor: pointer;
-  z-index: 1;
 }
 
 .profile__overlay:hover .profile__avatar {
