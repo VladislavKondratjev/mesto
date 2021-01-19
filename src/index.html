@@ -142,13 +142,13 @@
           ></button>
           <h3 class="popup__title">Обновить аватар</h3>
           <form
-            class="popup__form popup__form_type_modal"
+            class="popup__form update-avatar-form popup__form_type_modal"
             method="PATCH"
             action="#"
-            name="add-card"
+            name="update-avatar"
           >
             <input
-              id="url"
+              id="link"
               autocomplete="off"
               class="popup__input popup__input_type_avatar popup__input_type_modal"
               placeholder="Ссылка на картинку"
@@ -156,7 +156,7 @@
               type="url"
               required
             />
-            <span id="url-error" class="error"></span>
+            <span id="link-error" class="error"></span>
             <button type="submit" class="popup__submit-button">
               Сохранить
             </button>
