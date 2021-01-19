@@ -57,7 +57,8 @@ const editForm = new PopupWithForm(popupEdit, () => {
     button.textContent = 'Сохранение...'
     api.updateUserInfo({ name: popupInputTypeName.value, about: popupInputTypeDescription.value })
         .then(({ name, about, avatar }) => {
-            userInfo.setUserInfo({ name, about, avatar })
+            userInfo.setUserInfo({ name, about, avatar });
+            editForm.close()
         })
         .catch((err) => console.log(err))
         .finally(() => {
@@ -69,7 +70,8 @@ const avatarForm = new PopupWithForm(popupAvatar, () => {
     button.textContent = 'Сохранение...'
     api.updateAvatar({ avatar: popupInputTypeAvatar.value })
         .then(({ name, about, avatar }) => {
-            userInfo.setUserInfo({ name, about, avatar })
+            userInfo.setUserInfo({ name, about, avatar });
+            avatarForm.close()
         })
         .catch((err) => console.log(err))
         .finally(() => {
@@ -83,6 +85,7 @@ const addCardForm = new PopupWithForm(popupAddCard, (data) => {
         .then((res) => {
             const cardElement = createCard(res)
             cardList.newItem(cardElement);
+            addCardForm.close();
         })
         .catch((err) => console.log(err))
         .finally(() => {
@@ -181,6 +184,3 @@ popupEditCloseButton.addEventListener('click', () => editForm.close());
 popupAvatarCloseButton.addEventListener('click', () => avatarForm.close());
 popupConfirmCloseButton.addEventListener('click', () => popupConfirm.close());
 popupOpenImageCloseButton.addEventListener('click', () => popupImage.close());
-
-console.log(popupOpenImageCloseButton.addEventListener('click', () => popupImage.close()))
-console.log(popupAvatarCloseButton.addEventListener('click', () => avatarForm.close()))

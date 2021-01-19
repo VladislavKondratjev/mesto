@@ -2,6 +2,8 @@ export default class FormValidator {
     constructor(config, form) {
         this._config = config;
         this._form = form;
+        this._inputsList = this._form.querySelectorAll(this._config.inputSelector);
+        this._submitButton = this._form.querySelector(this._config.submitButtonSelector);
     }
 
     _showError(input) {
@@ -35,13 +37,10 @@ export default class FormValidator {
     }
 
     _setEventListeners() {
-        const inputsList = this._form.querySelectorAll(this._config.inputSelector);
-        const submitButton = this._form.querySelector(this._config.submitButtonSelector);
-
-        inputsList.forEach((input) => {
+        this._inputsList.forEach((input) => {
             input.addEventListener('input', () => {
                 this._checkInputValidity(input);
-                this._setButtonState(submitButton, this._form.checkValidity());
+                this._setButtonState(this._submitButton, this._form.checkValidity());
             });
         });
     }
@@ -51,17 +50,14 @@ export default class FormValidator {
             evt.preventDefault();
         });
         this._setEventListeners(this._form);
-        const submitButton = this._form.querySelector(this._config.submitButtonSelector); 
-        this._setButtonState(submitButton, this._form.checkValidity()); 
+        this._setButtonState(this._submitButton, this._form.checkValidity());
     }
 
     resetValidation() {
-        const inputsList = this._form.querySelectorAll(this._config.inputSelector);
-        inputsList.forEach((input) => {
+        this._inputsList.forEach((input) => {
             this._hideError(input)
         });
-        const button = this._form.querySelector(this._config.submitButtonSelector);
-        this._setButtonState(button, false);
+        this._setButtonState(this._submitButton, false);
     }
 
 }

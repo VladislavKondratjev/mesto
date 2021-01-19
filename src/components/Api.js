@@ -3,13 +3,21 @@ export default class Api {
         this._address = address;
         this._token = token;
     }
+
+    _apiAnswer(res) {
+        if (res.ok) {
+            return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+    }
+
     getInitialCards() {
         return fetch(`${this._address}/cards`, {
             headers: {
                 authorization: this._token,
             }
         })
-            .then(res => res.ok ? res.json() : Promise.reject(`Ошибка ${res.status}`))
+            .then((res) => this._apiAnswer(res))
     }
 
     getUserData() {
@@ -19,7 +27,7 @@ export default class Api {
                 'Content-Type': 'application/json'
             }
         })
-            .then(res => res.ok ? res.json() : Promise.reject(`Ошибка ${res.status}`))
+            .then((res) => this._apiAnswer(res))
     }
 
     updateUserInfo(data) {
@@ -34,7 +42,7 @@ export default class Api {
                 about: data.about
             })
         })
-            .then(res => res.ok ? res.json() : Promise.reject(`Ошибка ${res.status}`))
+            .then((res) => this._apiAnswer(res))
     }
 
     updateAvatar(data) {
@@ -48,7 +56,7 @@ export default class Api {
                 avatar: data.avatar
             })
         })
-            .then(res => res.ok ? res.json() : Promise.reject(`Ошибка ${res.status}`))
+            .then((res) => this._apiAnswer(res))
     }
 
     postCard(data) {
@@ -63,7 +71,7 @@ export default class Api {
                 link: data.link
             })
         })
-            .then(res => res.ok ? res.json() : Promise.reject(`Ошибка ${res.status}`))
+            .then((res) => this._apiAnswer(res))
     }
 
     deletetCard(id) {
@@ -74,7 +82,7 @@ export default class Api {
                 'Content-Type': 'application/json'
             }
         })
-            .then(res => res.ok ? res.json() : Promise.reject(`Ошибка ${res.status}`))
+            .then((res) => this._apiAnswer(res))
     }
 
     putLike(id) {
@@ -85,7 +93,7 @@ export default class Api {
                 'Content-Type': 'application/json'
             },
         })
-            .then(res => res.ok ? res.json() : Promise.reject(`Ошибка ${res.status}`))
+            .then((res) => this._apiAnswer(res))
     }
 
     deleteLike(id) {
@@ -96,7 +104,7 @@ export default class Api {
                 'Content-Type': 'application/json'
             }
         })
-            .then(res => res.ok ? res.json() : Promise.reject(`Ошибка ${res.status}`))
+            .then((res) => this._apiAnswer(res))
     }
 
 }
