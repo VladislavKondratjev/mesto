@@ -5,14 +5,3 @@
   display: block;
   transition: 0.3s;
 }
-
-.profile__avatar:hover {
-  background-image: url(../../../images/profile__avatar-edit-button.svg);
-  background-size: 29px 29px;
-  background-repeat: no-repeat;
-  background-position: center;
-  background: rgba(0, 0, 0, 0.5);
-  /* transition: 0.3s; */
-  cursor: pointer;
-  z-index: 1;
-}

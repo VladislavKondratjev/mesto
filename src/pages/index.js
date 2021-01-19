@@ -69,7 +69,7 @@ const avatarForm = new PopupWithForm(popupAvatar, () => {
     button.textContent = 'Сохранение...'
     api.updateAvatar({ avatar: popupInputTypeAvatar.value })
         .then(({ name, about, avatar }) => {
-            userInfo.setUserInfo({ name, about, avatar })
+            userInfo.setUserInfo({ name, about, avatar });
         })
         .catch((err) => console.log(err))
         .finally(() => {
@@ -178,6 +178,6 @@ avatarPic.addEventListener('click', openAvatarPopup)
 editButton.addEventListener('click', openProfilePopup);
 popupAddCloseButton.addEventListener('click', () => addCardForm.close());
 popupEditCloseButton.addEventListener('click', () => editForm.close());
-popupAvatarCloseButton.addEventListener('click', () => popupAvatar.close());
-popupConfirmCloseButton.addEventListener('click', () => popupConfirm.close());
+popupAvatarCloseButton.addEventListener('click', () => avatarForm.close());
+popupConfirmCloseButton.addEventListener('click', () => popupConfirm.close);
 popupOpenImageCloseButton.addEventListener('click', () => popupImage.close());
