@@ -36,7 +36,7 @@
 .popup__submit-button{padding:0;border:none;cursor:pointer;background-color:#000;font-size:18px;line-height:22px;text-align:center;color:#fff;margin-top:21px;margin-bottom:37px;height:50px;transition:.3s}.popup__submit-button:hover{opacity:.8;transition:.3s}@media screen and (max-width:767px){.popup__submit-button{height:46px;font-size:14px;line-height:17px;margin-bottom:25px;margin-top:44px}}
 .popup__title{font-weight:900;font-size:24px;line-height:29px;color:#000;margin-top:34px;margin-right:49px;margin-bottom:48px}@media screen and (max-width:767px){.popup__title{font-size:18px;line-height:22px;margin-top:26px;margin-right:8px}}
 .popup__title_type_newplace{align-self:flex-start;margin-left:37px}@media screen and (max-width:767px){.popup__title_type_newplace{margin-left:20px}}
-.popup__title_type_confirm{font-weight:900;font-size:24px;line-height:29px;color:#000;margin-top:34px;margin-right:49px;margin-bottom:0}
+.popup__title_type_newplace{align-self:flex-start;margin-left:37px}@media screen and (max-width:767px){.popup__title_type_newplace{margin-left:20px}}
 .popup__content{display:flex;flex-direction:column;align-items:center;max-width:430px;width:100%;background-color:#fff;border-radius:10px;position:relative;box-sizing:border-box}@media screen and (max-width:767px){.popup__content{max-width:282px}}
 .popup_opened{visibility:visible;opacity:1;transition-delay:0s}
 .popup_type_image{display:flex;flex-direction:column;align-items:center;box-sizing:border-box;background-color:rgba(0,0,0,.9)}
